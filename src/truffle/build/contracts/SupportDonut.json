@@ -1,0 +1,2907 @@
+{
+  "contractName": "SupportDonut",
+  "abi": [
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "from",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "amount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "timestamp",
+          "type": "uint256"
+        }
+      ],
+      "name": "DonutSupported",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "DONUT",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"from\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"to\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutSupported\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"DONUT\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/donation/SupportDonut.sol\":\"SupportDonut\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/donation/SupportDonut.sol\":{\"keccak256\":\"0xba5f94d376189a4ce25815f9297f16096b54fe7d45c26de5fbe2ab1e89552a91\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://7c609814b18ce47292371f6b0b1fb43c843e77df16dc8e335c988a9be705e150\",\"dweb:/ipfs/QmSnonzd5o8C8UtKSB8Kvq51isdjTZE7JrQy5ULwrZmFVD\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b5060b88061001f6000396000f3fe6080604052348015600f57600080fd5b506004361060285760003560e01c8063e7df8ab514602d575b600080fd5b60336047565b604051603e91906069565b60405180910390f35b660aa87bee53800081565b6000819050919050565b6063816052565b82525050565b6000602082019050607c6000830184605c565b9291505056fea26469706673582212207f4794358d65d54b841227ca78950634bfb7da41b0981b8e5f9a743ff8e1cab064736f6c63430008110033",
+  "deployedBytecode": "0x6080604052348015600f57600080fd5b506004361060285760003560e01c8063e7df8ab514602d575b600080fd5b60336047565b604051603e91906069565b60405180910390f35b660aa87bee53800081565b6000819050919050565b6063816052565b82525050565b6000602082019050607c6000830184605c565b9291505056fea26469706673582212207f4794358d65d54b841227ca78950634bfb7da41b0981b8e5f9a743ff8e1cab064736f6c63430008110033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [
+    {
+      "ast": {
+        "nodeType": "YulBlock",
+        "src": "0:439:7",
+        "statements": [
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "52:32:7",
+              "statements": [
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "62:16:7",
+                  "value": {
+                    "name": "value",
+                    "nodeType": "YulIdentifier",
+                    "src": "73:5:7"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "cleaned",
+                      "nodeType": "YulIdentifier",
+                      "src": "62:7:7"
+                    }
+                  ]
+                }
+              ]
+            },
+            "name": "cleanup_t_uint256",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "value",
+                "nodeType": "YulTypedName",
+                "src": "34:5:7",
+                "type": ""
+              }
+            ],
+            "returnVariables": [
+              {
+                "name": "cleaned",
+                "nodeType": "YulTypedName",
+                "src": "44:7:7",
+                "type": ""
+              }
+            ],
+            "src": "7:77:7"
+          },
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "155:53:7",
+              "statements": [
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "name": "pos",
+                        "nodeType": "YulIdentifier",
+                        "src": "172:3:7"
+                      },
+                      {
+                        "arguments": [
+                          {
+                            "name": "value",
+                            "nodeType": "YulIdentifier",
+                            "src": "195:5:7"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "cleanup_t_uint256",
+                          "nodeType": "YulIdentifier",
+                          "src": "177:17:7"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "177:24:7"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "mstore",
+                      "nodeType": "YulIdentifier",
+                      "src": "165:6:7"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "165:37:7"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "165:37:7"
+                }
+              ]
+            },
+            "name": "abi_encode_t_uint256_to_t_uint256_fromStack",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "value",
+                "nodeType": "YulTypedName",
+                "src": "143:5:7",
+                "type": ""
+              },
+              {
+                "name": "pos",
+                "nodeType": "YulTypedName",
+                "src": "150:3:7",
+                "type": ""
+              }
+            ],
+            "src": "90:118:7"
+          },
+          {
+            "body": {
+              "nodeType": "YulBlock",
+              "src": "312:124:7",
+              "statements": [
+                {
+                  "nodeType": "YulAssignment",
+                  "src": "322:26:7",
+                  "value": {
+                    "arguments": [
+                      {
+                        "name": "headStart",
+                        "nodeType": "YulIdentifier",
+                        "src": "334:9:7"
+                      },
+                      {
+                        "kind": "number",
+                        "nodeType": "YulLiteral",
+                        "src": "345:2:7",
+                        "type": "",
+                        "value": "32"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "add",
+                      "nodeType": "YulIdentifier",
+                      "src": "330:3:7"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "330:18:7"
+                  },
+                  "variableNames": [
+                    {
+                      "name": "tail",
+                      "nodeType": "YulIdentifier",
+                      "src": "322:4:7"
+                    }
+                  ]
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "name": "value0",
+                        "nodeType": "YulIdentifier",
+                        "src": "402:6:7"
+                      },
+                      {
+                        "arguments": [
+                          {
+                            "name": "headStart",
+                            "nodeType": "YulIdentifier",
+                            "src": "415:9:7"
+                          },
+                          {
+                            "kind": "number",
+                            "nodeType": "YulLiteral",
+                            "src": "426:1:7",
+                            "type": "",
+                            "value": "0"
+                          }
+                        ],
+                        "functionName": {
+                          "name": "add",
+                          "nodeType": "YulIdentifier",
+                          "src": "411:3:7"
+                        },
+                        "nodeType": "YulFunctionCall",
+                        "src": "411:17:7"
+                      }
+                    ],
+                    "functionName": {
+                      "name": "abi_encode_t_uint256_to_t_uint256_fromStack",
+                      "nodeType": "YulIdentifier",
+                      "src": "358:43:7"
+                    },
+                    "nodeType": "YulFunctionCall",
+                    "src": "358:71:7"
+                  },
+                  "nodeType": "YulExpressionStatement",
+                  "src": "358:71:7"
+                }
+              ]
+            },
+            "name": "abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed",
+            "nodeType": "YulFunctionDefinition",
+            "parameters": [
+              {
+                "name": "headStart",
+                "nodeType": "YulTypedName",
+                "src": "284:9:7",
+                "type": ""
+              },
+              {
+                "name": "value0",
+                "nodeType": "YulTypedName",
+                "src": "296:6:7",
+                "type": ""
+              }
+            ],
+            "returnVariables": [
+              {
+                "name": "tail",
+                "nodeType": "YulTypedName",
+                "src": "307:4:7",
+                "type": ""
+              }
+            ],
+            "src": "214:222:7"
+          }
+        ]
+      },
+      "contents": "{\n\n    function cleanup_t_uint256(value) -> cleaned {\n        cleaned := value\n    }\n\n    function abi_encode_t_uint256_to_t_uint256_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint256(value))\n    }\n\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n    }\n\n}\n",
+      "id": 7,
+      "language": "Yul",
+      "name": "#utility.yul"
+    }
+  ],
+  "sourceMap": "70:2150:5:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "70:2150:5:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;99:43;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;131:11;99:43;:::o;7:77:7:-;44:7;73:5;62:16;;7:77;;;:::o;90:118::-;177:24;195:5;177:24;:::i;:::-;172:3;165:37;90:118;;:::o;214:222::-;307:4;345:2;334:9;330:18;322:26;;358:71;426:1;415:9;411:17;402:6;358:71;:::i;:::-;214:222;;;;:::o",
+  "source": "// SPDX-License-Identifier: UNLICENSED\r\n\r\npragma solidity ^0.8.17;\r\n\r\ncontract SupportDonut {\r\n    uint256 public constant DONUT = 0.003 ether;\r\n\r\n    struct SupportReceipt {\r\n        address from;\r\n        address to;\r\n        uint256 amount;\r\n        string message;\r\n        uint256 timestamp;\r\n    }\r\n\r\n    SupportReceipt[] private _supportReceipts;\r\n    mapping(address => uint256[]) private _receiptIndexOfSupporter;\r\n    mapping(address => uint256[]) private _receiptIndexOfBeneficiary;\r\n\r\n    event DonutSupported(\r\n        address indexed from,\r\n        address indexed to,\r\n        uint256 amount,\r\n        uint256 timestamp\r\n    );\r\n\r\n    function _calculateBaseFee(uint256 amount) internal pure returns (uint256) {\r\n        return amount / 100;\r\n    }\r\n\r\n    function _addSupportReceipt(\r\n        address from,\r\n        address to,\r\n        uint256 amount,\r\n        string memory message\r\n    ) internal {\r\n        SupportReceipt memory newReceipt = SupportReceipt(\r\n            from,\r\n            to,\r\n            amount,\r\n            message,\r\n            block.timestamp\r\n        );\r\n\r\n        _supportReceipts.push(newReceipt);\r\n\r\n        uint256 receiptIndex = _supportReceipts.length - 1;\r\n\r\n        _receiptIndexOfSupporter[from].push(receiptIndex);\r\n        _receiptIndexOfBeneficiary[to].push(receiptIndex);\r\n    }\r\n\r\n    function _getReceiptsOfSupporter(\r\n        address supporter\r\n    ) internal view returns (SupportReceipt[] memory) {\r\n        uint256[] memory indices = _receiptIndexOfSupporter[supporter];\r\n\r\n        SupportReceipt[] memory result = new SupportReceipt[](indices.length);\r\n\r\n        for (uint256 i = 0; i < indices.length; i++) {\r\n            result[i] = _supportReceipts[indices[i]];\r\n        }\r\n\r\n        return result;\r\n    }\r\n\r\n    function _getReceiptsOfBeneficiary(\r\n        address beneficiary\r\n    ) internal view returns (SupportReceipt[] memory) {\r\n        uint256[] memory indices = _receiptIndexOfBeneficiary[beneficiary];\r\n\r\n        SupportReceipt[] memory result = new SupportReceipt[](indices.length);\r\n\r\n        for (uint256 i = 0; i < indices.length; i++) {\r\n            result[i] = _supportReceipts[indices[i]];\r\n        }\r\n\r\n        return result;\r\n    }\r\n}\r\n",
+  "sourcePath": "C:\\Users\\LHH\\treat-a-donut\\src\\truffle\\contracts\\donation\\SupportDonut.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/donation/SupportDonut.sol",
+    "exportedSymbols": {
+      "SupportDonut": [
+        1092
+      ]
+    },
+    "id": 1093,
+    "license": "UNLICENSED",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 876,
+        "literals": [
+          "solidity",
+          "^",
+          "0.8",
+          ".17"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "42:24:5"
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "canonicalName": "SupportDonut",
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "fullyImplemented": true,
+        "id": 1092,
+        "linearizedBaseContracts": [
+          1092
+        ],
+        "name": "SupportDonut",
+        "nameLocation": "79:12:5",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": true,
+            "functionSelector": "e7df8ab5",
+            "id": 879,
+            "mutability": "constant",
+            "name": "DONUT",
+            "nameLocation": "123:5:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 1092,
+            "src": "99:43:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 877,
+              "name": "uint256",
+              "nodeType": "ElementaryTypeName",
+              "src": "99:7:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": {
+              "hexValue": "302e303033",
+              "id": 878,
+              "isConstant": false,
+              "isLValue": false,
+              "isPure": true,
+              "kind": "number",
+              "lValueRequested": false,
+              "nodeType": "Literal",
+              "src": "131:11:5",
+              "subdenomination": "ether",
+              "typeDescriptions": {
+                "typeIdentifier": "t_rational_3000000000000000_by_1",
+                "typeString": "int_const 3000000000000000"
+              },
+              "value": "0.003"
+            },
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "SupportDonut.SupportReceipt",
+            "id": 890,
+            "members": [
+              {
+                "constant": false,
+                "id": 881,
+                "mutability": "mutable",
+                "name": "from",
+                "nameLocation": "192:4:5",
+                "nodeType": "VariableDeclaration",
+                "scope": 890,
+                "src": "184:12:5",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 880,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "184:7:5",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 883,
+                "mutability": "mutable",
+                "name": "to",
+                "nameLocation": "215:2:5",
+                "nodeType": "VariableDeclaration",
+                "scope": 890,
+                "src": "207:10:5",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 882,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "207:7:5",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 885,
+                "mutability": "mutable",
+                "name": "amount",
+                "nameLocation": "236:6:5",
+                "nodeType": "VariableDeclaration",
+                "scope": 890,
+                "src": "228:14:5",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 884,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "228:7:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 887,
+                "mutability": "mutable",
+                "name": "message",
+                "nameLocation": "260:7:5",
+                "nodeType": "VariableDeclaration",
+                "scope": 890,
+                "src": "253:14:5",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 886,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "253:6:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 889,
+                "mutability": "mutable",
+                "name": "timestamp",
+                "nameLocation": "286:9:5",
+                "nodeType": "VariableDeclaration",
+                "scope": 890,
+                "src": "278:17:5",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 888,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "278:7:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "visibility": "internal"
+              }
+            ],
+            "name": "SupportReceipt",
+            "nameLocation": "158:14:5",
+            "nodeType": "StructDefinition",
+            "scope": 1092,
+            "src": "151:152:5",
+            "visibility": "public"
+          },
+          {
+            "constant": false,
+            "id": 894,
+            "mutability": "mutable",
+            "name": "_supportReceipts",
+            "nameLocation": "336:16:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 1092,
+            "src": "311:41:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage",
+              "typeString": "struct SupportDonut.SupportReceipt[]"
+            },
+            "typeName": {
+              "baseType": {
+                "id": 892,
+                "nodeType": "UserDefinedTypeName",
+                "pathNode": {
+                  "id": 891,
+                  "name": "SupportReceipt",
+                  "nameLocations": [
+                    "311:14:5"
+                  ],
+                  "nodeType": "IdentifierPath",
+                  "referencedDeclaration": 890,
+                  "src": "311:14:5"
+                },
+                "referencedDeclaration": 890,
+                "src": "311:14:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                  "typeString": "struct SupportDonut.SupportReceipt"
+                }
+              },
+              "id": 893,
+              "nodeType": "ArrayTypeName",
+              "src": "311:16:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                "typeString": "struct SupportDonut.SupportReceipt[]"
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "constant": false,
+            "id": 899,
+            "mutability": "mutable",
+            "name": "_receiptIndexOfSupporter",
+            "nameLocation": "397:24:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 1092,
+            "src": "359:62:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+              "typeString": "mapping(address => uint256[])"
+            },
+            "typeName": {
+              "id": 898,
+              "keyType": {
+                "id": 895,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "367:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "359:29:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                "typeString": "mapping(address => uint256[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 896,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "378:7:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "id": 897,
+                "nodeType": "ArrayTypeName",
+                "src": "378:9:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[]"
+                }
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "constant": false,
+            "id": 904,
+            "mutability": "mutable",
+            "name": "_receiptIndexOfBeneficiary",
+            "nameLocation": "466:26:5",
+            "nodeType": "VariableDeclaration",
+            "scope": 1092,
+            "src": "428:64:5",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+              "typeString": "mapping(address => uint256[])"
+            },
+            "typeName": {
+              "id": 903,
+              "keyType": {
+                "id": 900,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "436:7:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "428:29:5",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                "typeString": "mapping(address => uint256[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 901,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "447:7:5",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "id": 902,
+                "nodeType": "ArrayTypeName",
+                "src": "447:9:5",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                  "typeString": "uint256[]"
+                }
+              }
+            },
+            "visibility": "private"
+          },
+          {
+            "anonymous": false,
+            "eventSelector": "0c3a2bbc3fac6e9b20125b124fbdd06b04f99675516c5f0968f635e8cf59cb5c",
+            "id": 914,
+            "name": "DonutSupported",
+            "nameLocation": "507:14:5",
+            "nodeType": "EventDefinition",
+            "parameters": {
+              "id": 913,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 906,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "from",
+                  "nameLocation": "548:4:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 914,
+                  "src": "532:20:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 905,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "532:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 908,
+                  "indexed": true,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "579:2:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 914,
+                  "src": "563:18:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 907,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "563:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 910,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "600:6:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 914,
+                  "src": "592:14:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 909,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "592:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 912,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "timestamp",
+                  "nameLocation": "625:9:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 914,
+                  "src": "617:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 911,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "617:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "521:120:5"
+            },
+            "src": "501:141:5"
+          },
+          {
+            "body": {
+              "id": 925,
+              "nodeType": "Block",
+              "src": "725:38:5",
+              "statements": [
+                {
+                  "expression": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 923,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 921,
+                      "name": "amount",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 916,
+                      "src": "743:6:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "/",
+                    "rightExpression": {
+                      "hexValue": "313030",
+                      "id": 922,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "752:3:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_100_by_1",
+                        "typeString": "int_const 100"
+                      },
+                      "value": "100"
+                    },
+                    "src": "743:12:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "functionReturnParameters": 920,
+                  "id": 924,
+                  "nodeType": "Return",
+                  "src": "736:19:5"
+                }
+              ]
+            },
+            "id": 926,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_calculateBaseFee",
+            "nameLocation": "659:17:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 917,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 916,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "685:6:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 926,
+                  "src": "677:14:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 915,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "677:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "676:16:5"
+            },
+            "returnParameters": {
+              "id": 920,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 919,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 926,
+                  "src": "716:7:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 918,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "716:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "715:9:5"
+            },
+            "scope": 1092,
+            "src": "650:113:5",
+            "stateMutability": "pure",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 976,
+              "nodeType": "Block",
+              "src": "916:419:5",
+              "statements": [
+                {
+                  "assignments": [
+                    939
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 939,
+                      "mutability": "mutable",
+                      "name": "newReceipt",
+                      "nameLocation": "949:10:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 976,
+                      "src": "927:32:5",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                        "typeString": "struct SupportDonut.SupportReceipt"
+                      },
+                      "typeName": {
+                        "id": 938,
+                        "nodeType": "UserDefinedTypeName",
+                        "pathNode": {
+                          "id": 937,
+                          "name": "SupportReceipt",
+                          "nameLocations": [
+                            "927:14:5"
+                          ],
+                          "nodeType": "IdentifierPath",
+                          "referencedDeclaration": 890,
+                          "src": "927:14:5"
+                        },
+                        "referencedDeclaration": 890,
+                        "src": "927:14:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 948,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "id": 941,
+                        "name": "from",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 928,
+                        "src": "991:4:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 942,
+                        "name": "to",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 930,
+                        "src": "1010:2:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      },
+                      {
+                        "id": 943,
+                        "name": "amount",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 932,
+                        "src": "1027:6:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      {
+                        "id": 944,
+                        "name": "message",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 934,
+                        "src": "1048:7:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      {
+                        "expression": {
+                          "id": 945,
+                          "name": "block",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 4294967292,
+                          "src": "1070:5:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_magic_block",
+                            "typeString": "block"
+                          }
+                        },
+                        "id": 946,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1076:9:5",
+                        "memberName": "timestamp",
+                        "nodeType": "MemberAccess",
+                        "src": "1070:15:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        },
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 940,
+                      "name": "SupportReceipt",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 890,
+                      "src": "962:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_type$_t_struct$_SupportReceipt_$890_storage_ptr_$",
+                        "typeString": "type(struct SupportDonut.SupportReceipt storage pointer)"
+                      }
+                    },
+                    "id": 947,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "structConstructorCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "962:134:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "927:169:5"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 952,
+                        "name": "newReceipt",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 939,
+                        "src": "1131:10:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt memory"
+                        }
+                      ],
+                      "expression": {
+                        "id": 949,
+                        "name": "_supportReceipts",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 894,
+                        "src": "1109:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage",
+                          "typeString": "struct SupportDonut.SupportReceipt storage ref[] storage ref"
+                        }
+                      },
+                      "id": 951,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1126:4:5",
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "src": "1109:21:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr_$_t_struct$_SupportReceipt_$890_storage_$returns$__$bound_to$_t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr_$",
+                        "typeString": "function (struct SupportDonut.SupportReceipt storage ref[] storage pointer,struct SupportDonut.SupportReceipt storage ref)"
+                      }
+                    },
+                    "id": 953,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1109:33:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 954,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1109:33:5"
+                },
+                {
+                  "assignments": [
+                    956
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 956,
+                      "mutability": "mutable",
+                      "name": "receiptIndex",
+                      "nameLocation": "1163:12:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 976,
+                      "src": "1155:20:5",
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      },
+                      "typeName": {
+                        "id": 955,
+                        "name": "uint256",
+                        "nodeType": "ElementaryTypeName",
+                        "src": "1155:7:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 961,
+                  "initialValue": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 960,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "expression": {
+                        "id": 957,
+                        "name": "_supportReceipts",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 894,
+                        "src": "1178:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage",
+                          "typeString": "struct SupportDonut.SupportReceipt storage ref[] storage ref"
+                        }
+                      },
+                      "id": 958,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1195:6:5",
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "src": "1178:23:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "-",
+                    "rightExpression": {
+                      "hexValue": "31",
+                      "id": 959,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1204:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_1_by_1",
+                        "typeString": "int_const 1"
+                      },
+                      "value": "1"
+                    },
+                    "src": "1178:27:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1155:50:5"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 966,
+                        "name": "receiptIndex",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 956,
+                        "src": "1254:12:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "baseExpression": {
+                          "id": 962,
+                          "name": "_receiptIndexOfSupporter",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 899,
+                          "src": "1218:24:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                            "typeString": "mapping(address => uint256[] storage ref)"
+                          }
+                        },
+                        "id": 964,
+                        "indexExpression": {
+                          "id": 963,
+                          "name": "from",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 928,
+                          "src": "1243:4:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1218:30:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                          "typeString": "uint256[] storage ref"
+                        }
+                      },
+                      "id": 965,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1249:4:5",
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "src": "1218:35:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_uint256_$dyn_storage_ptr_$_t_uint256_$returns$__$bound_to$_t_array$_t_uint256_$dyn_storage_ptr_$",
+                        "typeString": "function (uint256[] storage pointer,uint256)"
+                      }
+                    },
+                    "id": 967,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1218:49:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 968,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1218:49:5"
+                },
+                {
+                  "expression": {
+                    "arguments": [
+                      {
+                        "id": 973,
+                        "name": "receiptIndex",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 956,
+                        "src": "1314:12:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "expression": {
+                        "baseExpression": {
+                          "id": 969,
+                          "name": "_receiptIndexOfBeneficiary",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 904,
+                          "src": "1278:26:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                            "typeString": "mapping(address => uint256[] storage ref)"
+                          }
+                        },
+                        "id": 971,
+                        "indexExpression": {
+                          "id": 970,
+                          "name": "to",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 930,
+                          "src": "1305:2:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "1278:30:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                          "typeString": "uint256[] storage ref"
+                        }
+                      },
+                      "id": 972,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1309:4:5",
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "src": "1278:35:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_array$_t_uint256_$dyn_storage_ptr_$_t_uint256_$returns$__$bound_to$_t_array$_t_uint256_$dyn_storage_ptr_$",
+                        "typeString": "function (uint256[] storage pointer,uint256)"
+                      }
+                    },
+                    "id": 974,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1278:49:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_tuple$__$",
+                      "typeString": "tuple()"
+                    }
+                  },
+                  "id": 975,
+                  "nodeType": "ExpressionStatement",
+                  "src": "1278:49:5"
+                }
+              ]
+            },
+            "id": 977,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_addSupportReceipt",
+            "nameLocation": "780:18:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 935,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 928,
+                  "mutability": "mutable",
+                  "name": "from",
+                  "nameLocation": "817:4:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 977,
+                  "src": "809:12:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 927,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "809:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 930,
+                  "mutability": "mutable",
+                  "name": "to",
+                  "nameLocation": "840:2:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 977,
+                  "src": "832:10:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 929,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "832:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 932,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "861:6:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 977,
+                  "src": "853:14:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 931,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "853:7:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 934,
+                  "mutability": "mutable",
+                  "name": "message",
+                  "nameLocation": "892:7:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 977,
+                  "src": "878:21:5",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 933,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "878:6:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "798:108:5"
+            },
+            "returnParameters": {
+              "id": 936,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "916:0:5"
+            },
+            "scope": 1092,
+            "src": "771:564:5",
+            "stateMutability": "nonpayable",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1033,
+              "nodeType": "Block",
+              "src": "1459:313:5",
+              "statements": [
+                {
+                  "assignments": [
+                    990
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 990,
+                      "mutability": "mutable",
+                      "name": "indices",
+                      "nameLocation": "1487:7:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 1033,
+                      "src": "1470:24:5",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                        "typeString": "uint256[]"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 988,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1470:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 989,
+                        "nodeType": "ArrayTypeName",
+                        "src": "1470:9:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                          "typeString": "uint256[]"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 994,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 991,
+                      "name": "_receiptIndexOfSupporter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 899,
+                      "src": "1497:24:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                        "typeString": "mapping(address => uint256[] storage ref)"
+                      }
+                    },
+                    "id": 993,
+                    "indexExpression": {
+                      "id": 992,
+                      "name": "supporter",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 979,
+                      "src": "1522:9:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1497:35:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                      "typeString": "uint256[] storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1470:62:5"
+                },
+                {
+                  "assignments": [
+                    999
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 999,
+                      "mutability": "mutable",
+                      "name": "result",
+                      "nameLocation": "1569:6:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 1033,
+                      "src": "1545:30:5",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                        "typeString": "struct SupportDonut.SupportReceipt[]"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 997,
+                          "nodeType": "UserDefinedTypeName",
+                          "pathNode": {
+                            "id": 996,
+                            "name": "SupportReceipt",
+                            "nameLocations": [
+                              "1545:14:5"
+                            ],
+                            "nodeType": "IdentifierPath",
+                            "referencedDeclaration": 890,
+                            "src": "1545:14:5"
+                          },
+                          "referencedDeclaration": 890,
+                          "src": "1545:14:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt"
+                          }
+                        },
+                        "id": 998,
+                        "nodeType": "ArrayTypeName",
+                        "src": "1545:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt[]"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 1007,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 1004,
+                          "name": "indices",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 990,
+                          "src": "1599:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                            "typeString": "uint256[] memory"
+                          }
+                        },
+                        "id": 1005,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1607:6:5",
+                        "memberName": "length",
+                        "nodeType": "MemberAccess",
+                        "src": "1599:14:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 1003,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "nodeType": "NewExpression",
+                      "src": "1578:20:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr_$",
+                        "typeString": "function (uint256) pure returns (struct SupportDonut.SupportReceipt memory[] memory)"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 1001,
+                          "nodeType": "UserDefinedTypeName",
+                          "pathNode": {
+                            "id": 1000,
+                            "name": "SupportReceipt",
+                            "nameLocations": [
+                              "1582:14:5"
+                            ],
+                            "nodeType": "IdentifierPath",
+                            "referencedDeclaration": 890,
+                            "src": "1582:14:5"
+                          },
+                          "referencedDeclaration": 890,
+                          "src": "1582:14:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt"
+                          }
+                        },
+                        "id": 1002,
+                        "nodeType": "ArrayTypeName",
+                        "src": "1582:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt[]"
+                        }
+                      }
+                    },
+                    "id": 1006,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "1578:36:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1545:69:5"
+                },
+                {
+                  "body": {
+                    "id": 1029,
+                    "nodeType": "Block",
+                    "src": "1672:67:5",
+                    "statements": [
+                      {
+                        "expression": {
+                          "id": 1027,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "baseExpression": {
+                              "id": 1019,
+                              "name": "result",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 999,
+                              "src": "1687:6:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                                "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                              }
+                            },
+                            "id": 1021,
+                            "indexExpression": {
+                              "id": 1020,
+                              "name": "i",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1009,
+                              "src": "1694:1:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "1687:9:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                              "typeString": "struct SupportDonut.SupportReceipt memory"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "baseExpression": {
+                              "id": 1022,
+                              "name": "_supportReceipts",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 894,
+                              "src": "1699:16:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage",
+                                "typeString": "struct SupportDonut.SupportReceipt storage ref[] storage ref"
+                              }
+                            },
+                            "id": 1026,
+                            "indexExpression": {
+                              "baseExpression": {
+                                "id": 1023,
+                                "name": "indices",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 990,
+                                "src": "1716:7:5",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                  "typeString": "uint256[] memory"
+                                }
+                              },
+                              "id": 1025,
+                              "indexExpression": {
+                                "id": 1024,
+                                "name": "i",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 1009,
+                                "src": "1724:1:5",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "1716:10:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "1699:28:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SupportReceipt_$890_storage",
+                              "typeString": "struct SupportDonut.SupportReceipt storage ref"
+                            }
+                          },
+                          "src": "1687:40:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt memory"
+                          }
+                        },
+                        "id": 1028,
+                        "nodeType": "ExpressionStatement",
+                        "src": "1687:40:5"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 1015,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 1012,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1009,
+                      "src": "1647:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 1013,
+                        "name": "indices",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 990,
+                        "src": "1651:7:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                          "typeString": "uint256[] memory"
+                        }
+                      },
+                      "id": 1014,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "1659:6:5",
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "src": "1651:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "1647:18:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1030,
+                  "initializationExpression": {
+                    "assignments": [
+                      1009
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 1009,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "1640:1:5",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 1030,
+                        "src": "1632:9:5",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 1008,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1632:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 1011,
+                    "initialValue": {
+                      "hexValue": "30",
+                      "id": 1010,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "1644:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "1632:13:5"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 1017,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "1667:3:5",
+                      "subExpression": {
+                        "id": 1016,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1009,
+                        "src": "1667:1:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 1018,
+                    "nodeType": "ExpressionStatement",
+                    "src": "1667:3:5"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "1627:112:5"
+                },
+                {
+                  "expression": {
+                    "id": 1031,
+                    "name": "result",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 999,
+                    "src": "1758:6:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 985,
+                  "id": 1032,
+                  "nodeType": "Return",
+                  "src": "1751:13:5"
+                }
+              ]
+            },
+            "id": 1034,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_getReceiptsOfSupporter",
+            "nameLocation": "1352:23:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 980,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 979,
+                  "mutability": "mutable",
+                  "name": "supporter",
+                  "nameLocation": "1394:9:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1034,
+                  "src": "1386:17:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 978,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1386:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1375:35:5"
+            },
+            "returnParameters": {
+              "id": 985,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 984,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1034,
+                  "src": "1434:23:5",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                    "typeString": "struct SupportDonut.SupportReceipt[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 982,
+                      "nodeType": "UserDefinedTypeName",
+                      "pathNode": {
+                        "id": 981,
+                        "name": "SupportReceipt",
+                        "nameLocations": [
+                          "1434:14:5"
+                        ],
+                        "nodeType": "IdentifierPath",
+                        "referencedDeclaration": 890,
+                        "src": "1434:14:5"
+                      },
+                      "referencedDeclaration": 890,
+                      "src": "1434:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                        "typeString": "struct SupportDonut.SupportReceipt"
+                      }
+                    },
+                    "id": 983,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1434:16:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1433:25:5"
+            },
+            "scope": 1092,
+            "src": "1343:429:5",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 1090,
+              "nodeType": "Block",
+              "src": "1900:317:5",
+              "statements": [
+                {
+                  "assignments": [
+                    1047
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 1047,
+                      "mutability": "mutable",
+                      "name": "indices",
+                      "nameLocation": "1928:7:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 1090,
+                      "src": "1911:24:5",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                        "typeString": "uint256[]"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 1045,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "1911:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "id": 1046,
+                        "nodeType": "ArrayTypeName",
+                        "src": "1911:9:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_storage_ptr",
+                          "typeString": "uint256[]"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 1051,
+                  "initialValue": {
+                    "baseExpression": {
+                      "id": 1048,
+                      "name": "_receiptIndexOfBeneficiary",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 904,
+                      "src": "1938:26:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_address_$_t_array$_t_uint256_$dyn_storage_$",
+                        "typeString": "mapping(address => uint256[] storage ref)"
+                      }
+                    },
+                    "id": 1050,
+                    "indexExpression": {
+                      "id": 1049,
+                      "name": "beneficiary",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1036,
+                      "src": "1965:11:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "1938:39:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_uint256_$dyn_storage",
+                      "typeString": "uint256[] storage ref"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1911:66:5"
+                },
+                {
+                  "assignments": [
+                    1056
+                  ],
+                  "declarations": [
+                    {
+                      "constant": false,
+                      "id": 1056,
+                      "mutability": "mutable",
+                      "name": "result",
+                      "nameLocation": "2014:6:5",
+                      "nodeType": "VariableDeclaration",
+                      "scope": 1090,
+                      "src": "1990:30:5",
+                      "stateVariable": false,
+                      "storageLocation": "memory",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                        "typeString": "struct SupportDonut.SupportReceipt[]"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 1054,
+                          "nodeType": "UserDefinedTypeName",
+                          "pathNode": {
+                            "id": 1053,
+                            "name": "SupportReceipt",
+                            "nameLocations": [
+                              "1990:14:5"
+                            ],
+                            "nodeType": "IdentifierPath",
+                            "referencedDeclaration": 890,
+                            "src": "1990:14:5"
+                          },
+                          "referencedDeclaration": 890,
+                          "src": "1990:14:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt"
+                          }
+                        },
+                        "id": 1055,
+                        "nodeType": "ArrayTypeName",
+                        "src": "1990:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt[]"
+                        }
+                      },
+                      "visibility": "internal"
+                    }
+                  ],
+                  "id": 1064,
+                  "initialValue": {
+                    "arguments": [
+                      {
+                        "expression": {
+                          "id": 1061,
+                          "name": "indices",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1047,
+                          "src": "2044:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                            "typeString": "uint256[] memory"
+                          }
+                        },
+                        "id": 1062,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "2052:6:5",
+                        "memberName": "length",
+                        "nodeType": "MemberAccess",
+                        "src": "2044:14:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      ],
+                      "id": 1060,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "lValueRequested": false,
+                      "nodeType": "NewExpression",
+                      "src": "2023:20:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_objectcreation_pure$_t_uint256_$returns$_t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr_$",
+                        "typeString": "function (uint256) pure returns (struct SupportDonut.SupportReceipt memory[] memory)"
+                      },
+                      "typeName": {
+                        "baseType": {
+                          "id": 1058,
+                          "nodeType": "UserDefinedTypeName",
+                          "pathNode": {
+                            "id": 1057,
+                            "name": "SupportReceipt",
+                            "nameLocations": [
+                              "2027:14:5"
+                            ],
+                            "nodeType": "IdentifierPath",
+                            "referencedDeclaration": 890,
+                            "src": "2027:14:5"
+                          },
+                          "referencedDeclaration": 890,
+                          "src": "2027:14:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt"
+                          }
+                        },
+                        "id": 1059,
+                        "nodeType": "ArrayTypeName",
+                        "src": "2027:16:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                          "typeString": "struct SupportDonut.SupportReceipt[]"
+                        }
+                      }
+                    },
+                    "id": 1063,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "nameLocations": [],
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "2023:36:5",
+                    "tryCall": false,
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                    }
+                  },
+                  "nodeType": "VariableDeclarationStatement",
+                  "src": "1990:69:5"
+                },
+                {
+                  "body": {
+                    "id": 1086,
+                    "nodeType": "Block",
+                    "src": "2117:67:5",
+                    "statements": [
+                      {
+                        "expression": {
+                          "id": 1084,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftHandSide": {
+                            "baseExpression": {
+                              "id": 1076,
+                              "name": "result",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1056,
+                              "src": "2132:6:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                                "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                              }
+                            },
+                            "id": 1078,
+                            "indexExpression": {
+                              "id": 1077,
+                              "name": "i",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 1066,
+                              "src": "2139:1:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": true,
+                            "nodeType": "IndexAccess",
+                            "src": "2132:9:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                              "typeString": "struct SupportDonut.SupportReceipt memory"
+                            }
+                          },
+                          "nodeType": "Assignment",
+                          "operator": "=",
+                          "rightHandSide": {
+                            "baseExpression": {
+                              "id": 1079,
+                              "name": "_supportReceipts",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 894,
+                              "src": "2144:16:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage",
+                                "typeString": "struct SupportDonut.SupportReceipt storage ref[] storage ref"
+                              }
+                            },
+                            "id": 1083,
+                            "indexExpression": {
+                              "baseExpression": {
+                                "id": 1080,
+                                "name": "indices",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 1047,
+                                "src": "2161:7:5",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                                  "typeString": "uint256[] memory"
+                                }
+                              },
+                              "id": 1082,
+                              "indexExpression": {
+                                "id": 1081,
+                                "name": "i",
+                                "nodeType": "Identifier",
+                                "overloadedDeclarations": [],
+                                "referencedDeclaration": 1066,
+                                "src": "2169:1:5",
+                                "typeDescriptions": {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              },
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "nodeType": "IndexAccess",
+                              "src": "2161:10:5",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "2144:28:5",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_SupportReceipt_$890_storage",
+                              "typeString": "struct SupportDonut.SupportReceipt storage ref"
+                            }
+                          },
+                          "src": "2132:40:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_SupportReceipt_$890_memory_ptr",
+                            "typeString": "struct SupportDonut.SupportReceipt memory"
+                          }
+                        },
+                        "id": 1085,
+                        "nodeType": "ExpressionStatement",
+                        "src": "2132:40:5"
+                      }
+                    ]
+                  },
+                  "condition": {
+                    "commonType": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    },
+                    "id": 1072,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftExpression": {
+                      "id": 1069,
+                      "name": "i",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1066,
+                      "src": "2092:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "nodeType": "BinaryOperation",
+                    "operator": "<",
+                    "rightExpression": {
+                      "expression": {
+                        "id": 1070,
+                        "name": "indices",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1047,
+                        "src": "2096:7:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_uint256_$dyn_memory_ptr",
+                          "typeString": "uint256[] memory"
+                        }
+                      },
+                      "id": 1071,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberLocation": "2104:6:5",
+                      "memberName": "length",
+                      "nodeType": "MemberAccess",
+                      "src": "2096:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "src": "2092:18:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "id": 1087,
+                  "initializationExpression": {
+                    "assignments": [
+                      1066
+                    ],
+                    "declarations": [
+                      {
+                        "constant": false,
+                        "id": 1066,
+                        "mutability": "mutable",
+                        "name": "i",
+                        "nameLocation": "2085:1:5",
+                        "nodeType": "VariableDeclaration",
+                        "scope": 1087,
+                        "src": "2077:9:5",
+                        "stateVariable": false,
+                        "storageLocation": "default",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "typeName": {
+                          "id": 1065,
+                          "name": "uint256",
+                          "nodeType": "ElementaryTypeName",
+                          "src": "2077:7:5",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "visibility": "internal"
+                      }
+                    ],
+                    "id": 1068,
+                    "initialValue": {
+                      "hexValue": "30",
+                      "id": 1067,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": true,
+                      "kind": "number",
+                      "lValueRequested": false,
+                      "nodeType": "Literal",
+                      "src": "2089:1:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_rational_0_by_1",
+                        "typeString": "int_const 0"
+                      },
+                      "value": "0"
+                    },
+                    "nodeType": "VariableDeclarationStatement",
+                    "src": "2077:13:5"
+                  },
+                  "loopExpression": {
+                    "expression": {
+                      "id": 1074,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "nodeType": "UnaryOperation",
+                      "operator": "++",
+                      "prefix": false,
+                      "src": "2112:3:5",
+                      "subExpression": {
+                        "id": 1073,
+                        "name": "i",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1066,
+                        "src": "2112:1:5",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_uint256",
+                        "typeString": "uint256"
+                      }
+                    },
+                    "id": 1075,
+                    "nodeType": "ExpressionStatement",
+                    "src": "2112:3:5"
+                  },
+                  "nodeType": "ForStatement",
+                  "src": "2072:112:5"
+                },
+                {
+                  "expression": {
+                    "id": 1088,
+                    "name": "result",
+                    "nodeType": "Identifier",
+                    "overloadedDeclarations": [],
+                    "referencedDeclaration": 1056,
+                    "src": "2203:6:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt memory[] memory"
+                    }
+                  },
+                  "functionReturnParameters": 1042,
+                  "id": 1089,
+                  "nodeType": "Return",
+                  "src": "2196:13:5"
+                }
+              ]
+            },
+            "id": 1091,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_getReceiptsOfBeneficiary",
+            "nameLocation": "1789:25:5",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1037,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1036,
+                  "mutability": "mutable",
+                  "name": "beneficiary",
+                  "nameLocation": "1833:11:5",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1091,
+                  "src": "1825:19:5",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1035,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1825:7:5",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1814:37:5"
+            },
+            "returnParameters": {
+              "id": 1042,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1041,
+                  "mutability": "mutable",
+                  "name": "",
+                  "nameLocation": "-1:-1:-1",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1091,
+                  "src": "1875:23:5",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_memory_ptr_$dyn_memory_ptr",
+                    "typeString": "struct SupportDonut.SupportReceipt[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 1039,
+                      "nodeType": "UserDefinedTypeName",
+                      "pathNode": {
+                        "id": 1038,
+                        "name": "SupportReceipt",
+                        "nameLocations": [
+                          "1875:14:5"
+                        ],
+                        "nodeType": "IdentifierPath",
+                        "referencedDeclaration": 890,
+                        "src": "1875:14:5"
+                      },
+                      "referencedDeclaration": 890,
+                      "src": "1875:14:5",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_struct$_SupportReceipt_$890_storage_ptr",
+                        "typeString": "struct SupportDonut.SupportReceipt"
+                      }
+                    },
+                    "id": 1040,
+                    "nodeType": "ArrayTypeName",
+                    "src": "1875:16:5",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_struct$_SupportReceipt_$890_storage_$dyn_storage_ptr",
+                      "typeString": "struct SupportDonut.SupportReceipt[]"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1874:25:5"
+            },
+            "scope": 1092,
+            "src": "1780:437:5",
+            "stateMutability": "view",
+            "virtual": false,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 1093,
+        "src": "70:2150:5",
+        "usedErrors": []
+      }
+    ],
+    "src": "42:2180:5"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.17+commit.8df45f5f.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.10",
+  "updatedAt": "2022-12-01T09:45:18.127Z",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  }
+}
