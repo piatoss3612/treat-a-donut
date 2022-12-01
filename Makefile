@@ -31,4 +31,4 @@ migrate:
 
 deploy:
 	@echo Deploying smart contract on truffle dashboard...
-	chdir ./src/truffle && truffle migrate --network dashboard &
+	chdir ./src/truffle && truffle migrate --network dashboard

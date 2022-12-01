@@ -2,7 +2,7 @@
 
 pragma solidity ^0.8.17;
 
-abstract contract Owner {
+abstract contract Ownable {
     address private _owner;
 
     event OwnershipTransferred(

@@ -32,12 +32,9 @@ abstract contract DonutBox {
         _boxes[user].state = BoxState.Disactivated;
     }
 
-    function _isBoxActivated(address user)
-        internal
-        view
-        virtual
-        returns (bool)
-    {
+    function _isBoxActivated(
+        address user
+    ) internal view virtual returns (bool) {
         return _boxes[user].state == BoxState.Activated;
     }
 

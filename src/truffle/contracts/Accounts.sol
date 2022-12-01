@@ -2,11 +2,10 @@
 
 pragma solidity ^0.8.17;
 
-import "./account/Owner.sol";
 import "./account/User.sol";
 import "./account/DonutBox.sol";
 
-contract Accounts is Owner, User, DonutBox {
+contract Accounts is User, DonutBox {
     function _register(address newUser) internal override(User) {
         super._register(newUser);
         _activateBox(newUser);

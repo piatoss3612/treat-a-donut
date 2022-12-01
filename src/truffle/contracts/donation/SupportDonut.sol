@@ -50,9 +50,11 @@ contract SupportDonut {
         _receiptIndexOfBeneficiary[to].push(receiptIndex);
     }
 
-    function _getReceiptsOfSupporter(
-        address supporter
-    ) internal view returns (SupportReceipt[] memory) {
+    function _getReceiptsOfSupporter(address supporter)
+        internal
+        view
+        returns (SupportReceipt[] memory)
+    {
         uint256[] memory indices = _receiptIndexOfSupporter[supporter];
 
         SupportReceipt[] memory result = new SupportReceipt[](indices.length);
@@ -64,9 +66,11 @@ contract SupportDonut {
         return result;
     }
 
-    function _getReceiptsOfBeneficiary(
-        address beneficiary
-    ) internal view returns (SupportReceipt[] memory) {
+    function _getReceiptsOfBeneficiary(address beneficiary)
+        internal
+        view
+        returns (SupportReceipt[] memory)
+    {
         uint256[] memory indices = _receiptIndexOfBeneficiary[beneficiary];
 
         SupportReceipt[] memory result = new SupportReceipt[](indices.length);

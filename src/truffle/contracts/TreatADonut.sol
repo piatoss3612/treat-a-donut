@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.17;
 
-import "./donation/SupportDonut.sol";
-import "./Accounts.sol";
+import "./auth/Ownable.sol";
+import "./DonutConnector.sol";
 import "./utils/ReentrancyGuard.sol";
 
-contract TreatADonut is Accounts, SupportDonut, ReentrancyGuard {
-    constructor() Owner() {
+contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
+    constructor() Ownable() {
         register();
     }
 
@@ -64,17 +64,10 @@ contract TreatADonut is Accounts, SupportDonut, ReentrancyGuard {
         require(amount > 0, "zero amount not allowed");
         require(msg.value >= DONUT * amount, "not enough payment");
 
-        _transfer(to, amount);
+        _transferExceptFee(to, amount);
         _addSupportReceipt(msg.sender, to, amount, message);
 
         emit DonutSupported(msg.sender, to, amount, block.timestamp);
-    }
-
-    function _transfer(address to, uint256 amount) private {
-        uint256 total = DONUT * amount;
-        uint256 fee = _calculateBaseFee(total);
-        total -= fee;
-        _deposit(to, total);
     }
 
     function getReceiptsOfSupporter(
