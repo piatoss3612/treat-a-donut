@@ -65,29 +65,35 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/account/DonutBox.sol\":\"DonutBox\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/account/DonutBox.sol\":{\"keccak256\":\"0xccf15b93524e84d6322b8add2bb4a947a12413336529ae38cf368d607c944881\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://683a8cc783f12a1eaa7ace666342a918a827acd8f3e67b01b632adb3b01aa3c4\",\"dweb:/ipfs/QmYtSjqCmD9X2SHx2xdY7nNFK7AzWkPZPue4Lwes4EAepu\"]}},\"version\":1}",
-  "bytecode": "0x",
-  "deployedBytecode": "0x",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/account/DonutBox.sol\":\"DonutBox\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/account/DonutBox.sol\":{\"keccak256\":\"0x9a4b77aa9a685e31409be350dd1347dcba8511029854f6c90379bf0e6c7c584d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://63286d4b0196c44fe828d10aa1ed6bd0b68ccee43dc654b4d2ad7de633b81a73\",\"dweb:/ipfs/QmXDceRiVRSNDXnjCaP6EZPs8t7nFRSqU4i7FE5WJeqVyg\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122045cc1ce4a8f9948120f47734521781d6e26ad787a356a1658f43bc7156ead54764736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122045cc1ce4a8f9948120f47734521781d6e26ad787a356a1658f43bc7156ead54764736f6c63430008110033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
-  "sourceMap": "",
-  "deployedSourceMap": "",
-  "source": "// SPDX-License-Identifier: UNLICENSED\r\n\r\npragma solidity ^0.8.17;\r\n\r\nabstract contract DonutBox {\r\n    enum BoxState {\r\n        Disactivated,\r\n        Activated\r\n    }\r\n\r\n    struct Box {\r\n        uint256 balance;\r\n        BoxState state;\r\n    }\r\n\r\n    mapping(address => Box) private _boxes;\r\n\r\n    modifier onlyActivatedBox(address user) {\r\n        require(_isBoxActivated(user), \"not activated box\");\r\n        _;\r\n    }\r\n\r\n    event DonutBoxActivated(address indexed user, uint256 timestamp);\r\n    event DonutBoxDeactivated(address indexed user, uint256 timestamp);\r\n    event Withdrawn(address indexed user, uint256 amount, uint256 timestamp);\r\n\r\n    function _activateBox(address user) internal virtual {\r\n        _boxes[user].state = BoxState.Activated;\r\n    }\r\n\r\n    function _deactivateBox(address user) internal virtual {\r\n        _boxes[user].state = BoxState.Disactivated;\r\n    }\r\n\r\n    function _isBoxActivated(\r\n        address user\r\n    ) internal view virtual returns (bool) {\r\n        return _boxes[user].state == BoxState.Activated;\r\n    }\r\n\r\n    function _boxOf(address user) internal view virtual returns (Box memory) {\r\n        return _boxes[user];\r\n    }\r\n\r\n    function _balanceOf(address user) internal view virtual returns (uint256) {\r\n        return _boxes[user].balance;\r\n    }\r\n\r\n    function _deposit(address user, uint256 amount) internal virtual {\r\n        _boxes[user].balance += amount;\r\n    }\r\n\r\n    function _withdraw(address user, uint256 amount) internal virtual {\r\n        _boxes[user].balance -= amount;\r\n    }\r\n}\r\n",
+  "sourceMap": "139:1876:3:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "139:1876:3:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: UNLICENSED\r\n\r\npragma solidity ^0.8.17;\r\n\r\nerror BalanceDepositOverflow();\r\nerror BalanceWithdrawOverflow();\r\n\r\ncontract DonutBox {\r\n    enum BoxState {\r\n        Disactivated,\r\n        Activated\r\n    }\r\n\r\n    struct Box {\r\n        uint256 balance;\r\n        BoxState state;\r\n    }\r\n\r\n    mapping(address => Box) private _boxes;\r\n\r\n    modifier onlyActivatedBox(address _user) {\r\n        require(_isBoxActivated(_user), \"not activated box\");\r\n        _;\r\n    }\r\n\r\n    event DonutBoxActivated(address indexed user, uint256 timestamp);\r\n    event DonutBoxDeactivated(address indexed user, uint256 timestamp);\r\n    event Withdrawn(address indexed user, uint256 amount, uint256 timestamp);\r\n\r\n    function _activateBox(address _user) internal virtual {\r\n        _boxes[_user].state = BoxState.Activated;\r\n    }\r\n\r\n    function _deactivateBox(address _user) internal virtual {\r\n        _boxes[_user].state = BoxState.Disactivated;\r\n    }\r\n\r\n    function _isBoxActivated(\r\n        address _user\r\n    ) internal view virtual returns (bool) {\r\n        return _boxes[_user].state == BoxState.Activated;\r\n    }\r\n\r\n    function _deposit(address _user, uint256 _amount) internal virtual {\r\n        unchecked {\r\n            uint256 balance = _boxes[_user].balance;\r\n            uint256 deposited = balance + _amount;\r\n            if (deposited < balance) revert BalanceDepositOverflow();\r\n            _boxes[_user].balance = deposited;\r\n        }\r\n    }\r\n\r\n    function _withdraw(address _user, uint256 _amount) internal virtual {\r\n        unchecked {\r\n            uint256 balance = _boxes[_user].balance;\r\n            if (_amount > balance) revert BalanceWithdrawOverflow();\r\n            _boxes[_user].balance = balance - _amount;\r\n        }\r\n    }\r\n\r\n    function _boxOf(address _user) internal view virtual returns (Box memory) {\r\n        return _boxes[_user];\r\n    }\r\n\r\n    function _balanceOf(address _user) internal view virtual returns (uint256) {\r\n        return _boxes[_user].balance;\r\n    }\r\n}\r\n",
   "sourcePath": "C:\\Users\\LHH\\treat-a-donut\\src\\truffle\\contracts\\account\\DonutBox.sol",
   "ast": {
     "absolutePath": "project:/contracts/account/DonutBox.sol",
     "exportedSymbols": {
+      "BalanceDepositOverflow": [
+        503
+      ],
+      "BalanceWithdrawOverflow": [
+        505
+      ],
       "DonutBox": [
-        655
+        691
       ]
     },
-    "id": 656,
+    "id": 692,
     "license": "UNLICENSED",
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 507,
+        "id": 501,
         "literals": [
           "solidity",
           "^",
@@ -98,57 +104,85 @@
         "src": "42:24:3"
       },
       {
-        "abstract": true,
+        "errorSelector": "4ee055cb",
+        "id": 503,
+        "name": "BalanceDepositOverflow",
+        "nameLocation": "76:22:3",
+        "nodeType": "ErrorDefinition",
+        "parameters": {
+          "id": 502,
+          "nodeType": "ParameterList",
+          "parameters": [],
+          "src": "98:2:3"
+        },
+        "src": "70:31:3"
+      },
+      {
+        "errorSelector": "292949b2",
+        "id": 505,
+        "name": "BalanceWithdrawOverflow",
+        "nameLocation": "109:23:3",
+        "nodeType": "ErrorDefinition",
+        "parameters": {
+          "id": 504,
+          "nodeType": "ParameterList",
+          "parameters": [],
+          "src": "132:2:3"
+        },
+        "src": "103:32:3"
+      },
+      {
+        "abstract": false,
         "baseContracts": [],
         "canonicalName": "DonutBox",
         "contractDependencies": [],
         "contractKind": "contract",
         "fullyImplemented": true,
-        "id": 655,
+        "id": 691,
         "linearizedBaseContracts": [
-          655
+          691
         ],
         "name": "DonutBox",
-        "nameLocation": "88:8:3",
+        "nameLocation": "148:8:3",
         "nodeType": "ContractDefinition",
         "nodes": [
           {
             "canonicalName": "DonutBox.BoxState",
-            "id": 510,
+            "id": 508,
             "members": [
               {
-                "id": 508,
+                "id": 506,
                 "name": "Disactivated",
-                "nameLocation": "129:12:3",
+                "nameLocation": "189:12:3",
                 "nodeType": "EnumValue",
-                "src": "129:12:3"
+                "src": "189:12:3"
               },
               {
-                "id": 509,
+                "id": 507,
                 "name": "Activated",
-                "nameLocation": "152:9:3",
+                "nameLocation": "212:9:3",
                 "nodeType": "EnumValue",
-                "src": "152:9:3"
+                "src": "212:9:3"
               }
             ],
             "name": "BoxState",
-            "nameLocation": "109:8:3",
+            "nameLocation": "169:8:3",
             "nodeType": "EnumDefinition",
-            "src": "104:64:3"
+            "src": "164:64:3"
           },
           {
             "canonicalName": "DonutBox.Box",
-            "id": 516,
+            "id": 514,
             "members": [
               {
                 "constant": false,
-                "id": 512,
+                "id": 510,
                 "mutability": "mutable",
                 "name": "balance",
-                "nameLocation": "206:7:3",
+                "nameLocation": "266:7:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 516,
-                "src": "198:15:3",
+                "scope": 514,
+                "src": "258:15:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
@@ -156,10 +190,10 @@
                   "typeString": "uint256"
                 },
                 "typeName": {
-                  "id": 511,
+                  "id": 509,
                   "name": "uint256",
                   "nodeType": "ElementaryTypeName",
-                  "src": "198:7:3",
+                  "src": "258:7:3",
                   "typeDescriptions": {
                     "typeIdentifier": "t_uint256",
                     "typeString": "uint256"
@@ -169,36 +203,36 @@
               },
               {
                 "constant": false,
-                "id": 515,
+                "id": 513,
                 "mutability": "mutable",
                 "name": "state",
-                "nameLocation": "233:5:3",
+                "nameLocation": "293:5:3",
                 "nodeType": "VariableDeclaration",
-                "scope": 516,
-                "src": "224:14:3",
+                "scope": 514,
+                "src": "284:14:3",
                 "stateVariable": false,
                 "storageLocation": "default",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_enum$_BoxState_$510",
+                  "typeIdentifier": "t_enum$_BoxState_$508",
                   "typeString": "enum DonutBox.BoxState"
                 },
                 "typeName": {
-                  "id": 514,
+                  "id": 512,
                   "nodeType": "UserDefinedTypeName",
                   "pathNode": {
-                    "id": 513,
+                    "id": 511,
                     "name": "BoxState",
                     "nameLocations": [
-                      "224:8:3"
+                      "284:8:3"
                     ],
                     "nodeType": "IdentifierPath",
-                    "referencedDeclaration": 510,
-                    "src": "224:8:3"
+                    "referencedDeclaration": 508,
+                    "src": "284:8:3"
                   },
-                  "referencedDeclaration": 510,
-                  "src": "224:8:3",
+                  "referencedDeclaration": 508,
+                  "src": "284:8:3",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_enum$_BoxState_$510",
+                    "typeIdentifier": "t_enum$_BoxState_$508",
                     "typeString": "enum DonutBox.BoxState"
                   }
                 },
@@ -206,62 +240,62 @@
               }
             ],
             "name": "Box",
-            "nameLocation": "183:3:3",
+            "nameLocation": "243:3:3",
             "nodeType": "StructDefinition",
-            "scope": 655,
-            "src": "176:70:3",
+            "scope": 691,
+            "src": "236:70:3",
             "visibility": "public"
           },
           {
             "constant": false,
-            "id": 521,
+            "id": 519,
             "mutability": "mutable",
             "name": "_boxes",
-            "nameLocation": "286:6:3",
+            "nameLocation": "346:6:3",
             "nodeType": "VariableDeclaration",
-            "scope": 655,
-            "src": "254:38:3",
+            "scope": 691,
+            "src": "314:38:3",
             "stateVariable": true,
             "storageLocation": "default",
             "typeDescriptions": {
-              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
               "typeString": "mapping(address => struct DonutBox.Box)"
             },
             "typeName": {
-              "id": 520,
+              "id": 518,
               "keyType": {
-                "id": 517,
+                "id": 515,
                 "name": "address",
                 "nodeType": "ElementaryTypeName",
-                "src": "262:7:3",
+                "src": "322:7:3",
                 "typeDescriptions": {
                   "typeIdentifier": "t_address",
                   "typeString": "address"
                 }
               },
               "nodeType": "Mapping",
-              "src": "254:23:3",
+              "src": "314:23:3",
               "typeDescriptions": {
-                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                 "typeString": "mapping(address => struct DonutBox.Box)"
               },
               "valueType": {
-                "id": 519,
+                "id": 517,
                 "nodeType": "UserDefinedTypeName",
                 "pathNode": {
-                  "id": 518,
+                  "id": 516,
                   "name": "Box",
                   "nameLocations": [
-                    "273:3:3"
+                    "333:3:3"
                   ],
                   "nodeType": "IdentifierPath",
-                  "referencedDeclaration": 516,
-                  "src": "273:3:3"
+                  "referencedDeclaration": 514,
+                  "src": "333:3:3"
                 },
-                "referencedDeclaration": 516,
-                "src": "273:3:3",
+                "referencedDeclaration": 514,
+                "src": "333:3:3",
                 "typeDescriptions": {
-                  "typeIdentifier": "t_struct$_Box_$516_storage_ptr",
+                  "typeIdentifier": "t_struct$_Box_$514_storage_ptr",
                   "typeString": "struct DonutBox.Box"
                 }
               }
@@ -270,9 +304,9 @@
           },
           {
             "body": {
-              "id": 533,
+              "id": 531,
               "nodeType": "Block",
-              "src": "341:82:3",
+              "src": "402:83:3",
               "statements": [
                 {
                   "expression": {
@@ -280,12 +314,12 @@
                       {
                         "arguments": [
                           {
-                            "id": 527,
-                            "name": "user",
+                            "id": 525,
+                            "name": "_user",
                             "nodeType": "Identifier",
                             "overloadedDeclarations": [],
-                            "referencedDeclaration": 523,
-                            "src": "376:4:3",
+                            "referencedDeclaration": 521,
+                            "src": "437:5:3",
                             "typeDescriptions": {
                               "typeIdentifier": "t_address",
                               "typeString": "address"
@@ -299,18 +333,18 @@
                               "typeString": "address"
                             }
                           ],
-                          "id": 526,
+                          "id": 524,
                           "name": "_isBoxActivated",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 598,
-                          "src": "360:15:3",
+                          "referencedDeclaration": 596,
+                          "src": "421:15:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_view$_t_address_$returns$_t_bool_$",
                             "typeString": "function (address) view returns (bool)"
                           }
                         },
-                        "id": 528,
+                        "id": 526,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": false,
@@ -319,7 +353,7 @@
                         "nameLocations": [],
                         "names": [],
                         "nodeType": "FunctionCall",
-                        "src": "360:21:3",
+                        "src": "421:22:3",
                         "tryCall": false,
                         "typeDescriptions": {
                           "typeIdentifier": "t_bool",
@@ -328,14 +362,14 @@
                       },
                       {
                         "hexValue": "6e6f742061637469766174656420626f78",
-                        "id": 529,
+                        "id": 527,
                         "isConstant": false,
                         "isLValue": false,
                         "isPure": true,
                         "kind": "string",
                         "lValueRequested": false,
                         "nodeType": "Literal",
-                        "src": "383:19:3",
+                        "src": "445:19:3",
                         "typeDescriptions": {
                           "typeIdentifier": "t_stringliteral_4092d6d767d234c38c584adfbf69d8810e6b9ecf8367a30ee27b294b9a19aade",
                           "typeString": "literal_string \"not activated box\""
@@ -354,7 +388,7 @@
                           "typeString": "literal_string \"not activated box\""
                         }
                       ],
-                      "id": 525,
+                      "id": 523,
                       "name": "require",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [
@@ -362,13 +396,13 @@
                         4294967278
                       ],
                       "referencedDeclaration": 4294967278,
-                      "src": "352:7:3",
+                      "src": "413:7:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_function_require_pure$_t_bool_$_t_string_memory_ptr_$returns$__$",
                         "typeString": "function (bool,string memory) pure"
                       }
                     },
-                    "id": 530,
+                    "id": 528,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -377,41 +411,41 @@
                     "nameLocations": [],
                     "names": [],
                     "nodeType": "FunctionCall",
-                    "src": "352:51:3",
+                    "src": "413:52:3",
                     "tryCall": false,
                     "typeDescriptions": {
                       "typeIdentifier": "t_tuple$__$",
                       "typeString": "tuple()"
                     }
                   },
-                  "id": 531,
+                  "id": 529,
                   "nodeType": "ExpressionStatement",
-                  "src": "352:51:3"
+                  "src": "413:52:3"
                 },
                 {
-                  "id": 532,
+                  "id": 530,
                   "nodeType": "PlaceholderStatement",
-                  "src": "414:1:3"
+                  "src": "476:1:3"
                 }
               ]
             },
-            "id": 534,
+            "id": 532,
             "name": "onlyActivatedBox",
-            "nameLocation": "310:16:3",
+            "nameLocation": "370:16:3",
             "nodeType": "ModifierDefinition",
             "parameters": {
-              "id": 524,
+              "id": 522,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 523,
+                  "id": 521,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "335:4:3",
+                  "name": "_user",
+                  "nameLocation": "395:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 534,
-                  "src": "327:12:3",
+                  "scope": 532,
+                  "src": "387:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -419,10 +453,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 522,
+                    "id": 520,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "327:7:3",
+                    "src": "387:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -432,33 +466,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "326:14:3"
+              "src": "386:15:3"
             },
-            "src": "301:122:3",
+            "src": "361:124:3",
             "virtual": false,
             "visibility": "internal"
           },
           {
             "anonymous": false,
             "eventSelector": "3aa9434b0ce05599c0933372974baba95f85f26d1ee581c4b23eba20727ca4e1",
-            "id": 540,
+            "id": 538,
             "name": "DonutBoxActivated",
-            "nameLocation": "437:17:3",
+            "nameLocation": "499:17:3",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 539,
+              "id": 537,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 536,
+                  "id": 534,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "user",
-                  "nameLocation": "471:4:3",
+                  "nameLocation": "533:4:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 540,
-                  "src": "455:20:3",
+                  "scope": 538,
+                  "src": "517:20:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -466,10 +500,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 535,
+                    "id": 533,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "455:7:3",
+                    "src": "517:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -480,14 +514,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 538,
+                  "id": 536,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "timestamp",
-                  "nameLocation": "485:9:3",
+                  "nameLocation": "547:9:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 540,
-                  "src": "477:17:3",
+                  "scope": 538,
+                  "src": "539:17:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -495,10 +529,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 537,
+                    "id": 535,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "477:7:3",
+                    "src": "539:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -507,31 +541,31 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "454:41:3"
+              "src": "516:41:3"
             },
-            "src": "431:65:3"
+            "src": "493:65:3"
           },
           {
             "anonymous": false,
             "eventSelector": "aba59751917a4d191bd12ce3be6afef36ee64eb782e974048ea3dfb53bc7a37b",
-            "id": 546,
+            "id": 544,
             "name": "DonutBoxDeactivated",
-            "nameLocation": "508:19:3",
+            "nameLocation": "570:19:3",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 545,
+              "id": 543,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 542,
+                  "id": 540,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "user",
-                  "nameLocation": "544:4:3",
+                  "nameLocation": "606:4:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 546,
-                  "src": "528:20:3",
+                  "scope": 544,
+                  "src": "590:20:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -539,10 +573,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 541,
+                    "id": 539,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "528:7:3",
+                    "src": "590:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -553,14 +587,14 @@
                 },
                 {
                   "constant": false,
-                  "id": 544,
+                  "id": 542,
                   "indexed": false,
                   "mutability": "mutable",
                   "name": "timestamp",
-                  "nameLocation": "558:9:3",
+                  "nameLocation": "620:9:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 546,
-                  "src": "550:17:3",
+                  "scope": 544,
+                  "src": "612:17:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -568,10 +602,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 543,
+                    "id": 541,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "550:7:3",
+                    "src": "612:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -580,31 +614,31 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "527:41:3"
+              "src": "589:41:3"
             },
-            "src": "502:67:3"
+            "src": "564:67:3"
           },
           {
             "anonymous": false,
             "eventSelector": "92ccf450a286a957af52509bc1c9939d1a6a481783e142e41e2499f0bb66ebc6",
-            "id": 554,
+            "id": 552,
             "name": "Withdrawn",
-            "nameLocation": "581:9:3",
+            "nameLocation": "643:9:3",
             "nodeType": "EventDefinition",
             "parameters": {
-              "id": 553,
+              "id": 551,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 548,
+                  "id": 546,
                   "indexed": true,
                   "mutability": "mutable",
                   "name": "user",
-                  "nameLocation": "607:4:3",
+                  "nameLocation": "669:4:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "591:20:3",
+                  "scope": 552,
+                  "src": "653:20:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -612,14 +646,42 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 547,
+                    "id": 545,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "591:7:3",
+                    "src": "653:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
                       "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 548,
+                  "indexed": false,
+                  "mutability": "mutable",
+                  "name": "amount",
+                  "nameLocation": "683:6:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 552,
+                  "src": "675:14:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 547,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "675:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
                     }
                   },
                   "visibility": "internal"
@@ -629,11 +691,11 @@
                   "id": 550,
                   "indexed": false,
                   "mutability": "mutable",
-                  "name": "amount",
-                  "nameLocation": "621:6:3",
+                  "name": "timestamp",
+                  "nameLocation": "699:9:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "613:14:3",
+                  "scope": 552,
+                  "src": "691:17:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -644,35 +706,7 @@
                     "id": 549,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "613:7:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 552,
-                  "indexed": false,
-                  "mutability": "mutable",
-                  "name": "timestamp",
-                  "nameLocation": "637:9:3",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 554,
-                  "src": "629:17:3",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 551,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "629:7:3",
+                    "src": "691:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -681,19 +715,19 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "590:57:3"
+              "src": "652:57:3"
             },
-            "src": "575:73:3"
+            "src": "637:73:3"
           },
           {
             "body": {
-              "id": 567,
+              "id": 565,
               "nodeType": "Block",
-              "src": "709:58:3",
+              "src": "772:59:3",
               "statements": [
                 {
                   "expression": {
-                    "id": 565,
+                    "id": 563,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -701,25 +735,25 @@
                     "leftHandSide": {
                       "expression": {
                         "baseExpression": {
-                          "id": 559,
+                          "id": 557,
                           "name": "_boxes",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "720:6:3",
+                          "referencedDeclaration": 519,
+                          "src": "783:6:3",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                             "typeString": "mapping(address => struct DonutBox.Box storage ref)"
                           }
                         },
-                        "id": 561,
+                        "id": 559,
                         "indexExpression": {
-                          "id": 560,
-                          "name": "user",
+                          "id": 558,
+                          "name": "_user",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 556,
-                          "src": "727:4:3",
+                          "referencedDeclaration": 554,
+                          "src": "790:5:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -730,89 +764,89 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "720:12:3",
+                        "src": "783:13:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Box_$516_storage",
+                          "typeIdentifier": "t_struct$_Box_$514_storage",
                           "typeString": "struct DonutBox.Box storage ref"
+                        }
+                      },
+                      "id": 560,
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "memberLocation": "797:5:3",
+                      "memberName": "state",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": 513,
+                      "src": "783:19:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_enum$_BoxState_$508",
+                        "typeString": "enum DonutBox.BoxState"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "expression": {
+                        "id": 561,
+                        "name": "BoxState",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 508,
+                        "src": "805:8:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_type$_t_enum$_BoxState_$508_$",
+                          "typeString": "type(enum DonutBox.BoxState)"
                         }
                       },
                       "id": 562,
                       "isConstant": false,
-                      "isLValue": true,
-                      "isPure": false,
-                      "lValueRequested": true,
-                      "memberLocation": "733:5:3",
-                      "memberName": "state",
-                      "nodeType": "MemberAccess",
-                      "referencedDeclaration": 515,
-                      "src": "720:18:3",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
-                        "typeString": "enum DonutBox.BoxState"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "=",
-                    "rightHandSide": {
-                      "expression": {
-                        "id": 563,
-                        "name": "BoxState",
-                        "nodeType": "Identifier",
-                        "overloadedDeclarations": [],
-                        "referencedDeclaration": 510,
-                        "src": "741:8:3",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_enum$_BoxState_$510_$",
-                          "typeString": "type(enum DonutBox.BoxState)"
-                        }
-                      },
-                      "id": 564,
-                      "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
-                      "memberLocation": "750:9:3",
+                      "memberLocation": "814:9:3",
                       "memberName": "Activated",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 509,
-                      "src": "741:18:3",
+                      "referencedDeclaration": 507,
+                      "src": "805:18:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
+                        "typeIdentifier": "t_enum$_BoxState_$508",
                         "typeString": "enum DonutBox.BoxState"
                       }
                     },
-                    "src": "720:39:3",
+                    "src": "783:40:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_BoxState_$510",
+                      "typeIdentifier": "t_enum$_BoxState_$508",
                       "typeString": "enum DonutBox.BoxState"
                     }
                   },
-                  "id": 566,
+                  "id": 564,
                   "nodeType": "ExpressionStatement",
-                  "src": "720:39:3"
+                  "src": "783:40:3"
                 }
               ]
             },
-            "id": 568,
+            "id": 566,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_activateBox",
-            "nameLocation": "665:12:3",
+            "nameLocation": "727:12:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 557,
+              "id": 555,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 556,
+                  "id": 554,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "686:4:3",
+                  "name": "_user",
+                  "nameLocation": "748:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 568,
-                  "src": "678:12:3",
+                  "scope": 566,
+                  "src": "740:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -820,10 +854,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 555,
+                    "id": 553,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "678:7:3",
+                    "src": "740:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -833,29 +867,29 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "677:14:3"
+              "src": "739:15:3"
             },
             "returnParameters": {
-              "id": 558,
+              "id": 556,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "709:0:3"
+              "src": "772:0:3"
             },
-            "scope": 655,
-            "src": "656:111:3",
+            "scope": 691,
+            "src": "718:113:3",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 581,
+              "id": 579,
               "nodeType": "Block",
-              "src": "830:61:3",
+              "src": "895:62:3",
               "statements": [
                 {
                   "expression": {
-                    "id": 579,
+                    "id": 577,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -863,25 +897,25 @@
                     "leftHandSide": {
                       "expression": {
                         "baseExpression": {
-                          "id": 573,
+                          "id": 571,
                           "name": "_boxes",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "841:6:3",
+                          "referencedDeclaration": 519,
+                          "src": "906:6:3",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                             "typeString": "mapping(address => struct DonutBox.Box storage ref)"
                           }
                         },
-                        "id": 575,
+                        "id": 573,
                         "indexExpression": {
-                          "id": 574,
-                          "name": "user",
+                          "id": 572,
+                          "name": "_user",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 570,
-                          "src": "848:4:3",
+                          "referencedDeclaration": 568,
+                          "src": "913:5:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -892,24 +926,24 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "841:12:3",
+                        "src": "906:13:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Box_$516_storage",
+                          "typeIdentifier": "t_struct$_Box_$514_storage",
                           "typeString": "struct DonutBox.Box storage ref"
                         }
                       },
-                      "id": 576,
+                      "id": 574,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": true,
-                      "memberLocation": "854:5:3",
+                      "memberLocation": "920:5:3",
                       "memberName": "state",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 515,
-                      "src": "841:18:3",
+                      "referencedDeclaration": 513,
+                      "src": "906:19:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
+                        "typeIdentifier": "t_enum$_BoxState_$508",
                         "typeString": "enum DonutBox.BoxState"
                       }
                     },
@@ -917,64 +951,64 @@
                     "operator": "=",
                     "rightHandSide": {
                       "expression": {
-                        "id": 577,
+                        "id": 575,
                         "name": "BoxState",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 510,
-                        "src": "862:8:3",
+                        "referencedDeclaration": 508,
+                        "src": "928:8:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_enum$_BoxState_$510_$",
+                          "typeIdentifier": "t_type$_t_enum$_BoxState_$508_$",
                           "typeString": "type(enum DonutBox.BoxState)"
                         }
                       },
-                      "id": 578,
+                      "id": 576,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
-                      "memberLocation": "871:12:3",
+                      "memberLocation": "937:12:3",
                       "memberName": "Disactivated",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 508,
-                      "src": "862:21:3",
+                      "referencedDeclaration": 506,
+                      "src": "928:21:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
+                        "typeIdentifier": "t_enum$_BoxState_$508",
                         "typeString": "enum DonutBox.BoxState"
                       }
                     },
-                    "src": "841:42:3",
+                    "src": "906:43:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_enum$_BoxState_$510",
+                      "typeIdentifier": "t_enum$_BoxState_$508",
                       "typeString": "enum DonutBox.BoxState"
                     }
                   },
-                  "id": 580,
+                  "id": 578,
                   "nodeType": "ExpressionStatement",
-                  "src": "841:42:3"
+                  "src": "906:43:3"
                 }
               ]
             },
-            "id": 582,
+            "id": 580,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_deactivateBox",
-            "nameLocation": "784:14:3",
+            "nameLocation": "848:14:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 571,
+              "id": 569,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 570,
+                  "id": 568,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "807:4:3",
+                  "name": "_user",
+                  "nameLocation": "871:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 582,
-                  "src": "799:12:3",
+                  "scope": 580,
+                  "src": "863:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -982,10 +1016,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 569,
+                    "id": 567,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "799:7:3",
+                    "src": "863:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -995,33 +1029,33 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "798:14:3"
+              "src": "862:15:3"
             },
             "returnParameters": {
-              "id": 572,
+              "id": 570,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "830:0:3"
+              "src": "895:0:3"
             },
-            "scope": 655,
-            "src": "775:116:3",
+            "scope": 691,
+            "src": "839:118:3",
             "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 597,
+              "id": 595,
               "nodeType": "Block",
-              "src": "991:66:3",
+              "src": "1058:67:3",
               "statements": [
                 {
                   "expression": {
                     "commonType": {
-                      "typeIdentifier": "t_enum$_BoxState_$510",
+                      "typeIdentifier": "t_enum$_BoxState_$508",
                       "typeString": "enum DonutBox.BoxState"
                     },
-                    "id": 595,
+                    "id": 593,
                     "isConstant": false,
                     "isLValue": false,
                     "isPure": false,
@@ -1029,25 +1063,25 @@
                     "leftExpression": {
                       "expression": {
                         "baseExpression": {
-                          "id": 589,
+                          "id": 587,
                           "name": "_boxes",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "1009:6:3",
+                          "referencedDeclaration": 519,
+                          "src": "1076:6:3",
                           "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                             "typeString": "mapping(address => struct DonutBox.Box storage ref)"
                           }
                         },
-                        "id": 591,
+                        "id": 589,
                         "indexExpression": {
-                          "id": 590,
-                          "name": "user",
+                          "id": 588,
+                          "name": "_user",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 584,
-                          "src": "1016:4:3",
+                          "referencedDeclaration": 582,
+                          "src": "1083:5:3",
                           "typeDescriptions": {
                             "typeIdentifier": "t_address",
                             "typeString": "address"
@@ -1058,24 +1092,24 @@
                         "isPure": false,
                         "lValueRequested": false,
                         "nodeType": "IndexAccess",
-                        "src": "1009:12:3",
+                        "src": "1076:13:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Box_$516_storage",
+                          "typeIdentifier": "t_struct$_Box_$514_storage",
                           "typeString": "struct DonutBox.Box storage ref"
                         }
                       },
-                      "id": 592,
+                      "id": 590,
                       "isConstant": false,
                       "isLValue": true,
                       "isPure": false,
                       "lValueRequested": false,
-                      "memberLocation": "1022:5:3",
+                      "memberLocation": "1090:5:3",
                       "memberName": "state",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 515,
-                      "src": "1009:18:3",
+                      "referencedDeclaration": 513,
+                      "src": "1076:19:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
+                        "typeIdentifier": "t_enum$_BoxState_$508",
                         "typeString": "enum DonutBox.BoxState"
                       }
                     },
@@ -1083,65 +1117,65 @@
                     "operator": "==",
                     "rightExpression": {
                       "expression": {
-                        "id": 593,
+                        "id": 591,
                         "name": "BoxState",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 510,
-                        "src": "1031:8:3",
+                        "referencedDeclaration": 508,
+                        "src": "1099:8:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_type$_t_enum$_BoxState_$510_$",
+                          "typeIdentifier": "t_type$_t_enum$_BoxState_$508_$",
                           "typeString": "type(enum DonutBox.BoxState)"
                         }
                       },
-                      "id": 594,
+                      "id": 592,
                       "isConstant": false,
                       "isLValue": false,
                       "isPure": true,
                       "lValueRequested": false,
-                      "memberLocation": "1040:9:3",
+                      "memberLocation": "1108:9:3",
                       "memberName": "Activated",
                       "nodeType": "MemberAccess",
-                      "referencedDeclaration": 509,
-                      "src": "1031:18:3",
+                      "referencedDeclaration": 507,
+                      "src": "1099:18:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_enum$_BoxState_$510",
+                        "typeIdentifier": "t_enum$_BoxState_$508",
                         "typeString": "enum DonutBox.BoxState"
                       }
                     },
-                    "src": "1009:40:3",
+                    "src": "1076:41:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
                     }
                   },
-                  "functionReturnParameters": 588,
-                  "id": 596,
+                  "functionReturnParameters": 586,
+                  "id": 594,
                   "nodeType": "Return",
-                  "src": "1002:47:3"
+                  "src": "1069:48:3"
                 }
               ]
             },
-            "id": 598,
+            "id": 596,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_isBoxActivated",
-            "nameLocation": "908:15:3",
+            "nameLocation": "974:15:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 585,
+              "id": 583,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 584,
+                  "id": 582,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "942:4:3",
+                  "name": "_user",
+                  "nameLocation": "1008:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 598,
-                  "src": "934:12:3",
+                  "scope": 596,
+                  "src": "1000:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1149,10 +1183,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 583,
+                    "id": 581,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "934:7:3",
+                    "src": "1000:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1162,21 +1196,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "923:30:3"
+              "src": "989:31:3"
             },
             "returnParameters": {
-              "id": 588,
+              "id": 586,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 587,
+                  "id": 585,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 598,
-                  "src": "985:4:3",
+                  "scope": 596,
+                  "src": "1052:4:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1184,10 +1218,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 586,
+                    "id": 584,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "985:4:3",
+                    "src": "1052:4:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -1196,42 +1230,857 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "984:6:3"
+              "src": "1051:6:3"
             },
-            "scope": 655,
-            "src": "899:158:3",
+            "scope": 691,
+            "src": "965:160:3",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 610,
+              "id": 631,
               "nodeType": "Block",
-              "src": "1138:38:3",
+              "src": "1200:265:3",
+              "statements": [
+                {
+                  "id": 630,
+                  "nodeType": "UncheckedBlock",
+                  "src": "1211:247:3",
+                  "statements": [
+                    {
+                      "assignments": [
+                        604
+                      ],
+                      "declarations": [
+                        {
+                          "constant": false,
+                          "id": 604,
+                          "mutability": "mutable",
+                          "name": "balance",
+                          "nameLocation": "1244:7:3",
+                          "nodeType": "VariableDeclaration",
+                          "scope": 630,
+                          "src": "1236:15:3",
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "typeName": {
+                            "id": 603,
+                            "name": "uint256",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1236:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "visibility": "internal"
+                        }
+                      ],
+                      "id": 609,
+                      "initialValue": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 605,
+                            "name": "_boxes",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 519,
+                            "src": "1254:6:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
+                              "typeString": "mapping(address => struct DonutBox.Box storage ref)"
+                            }
+                          },
+                          "id": 607,
+                          "indexExpression": {
+                            "id": 606,
+                            "name": "_user",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 598,
+                            "src": "1261:5:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1254:13:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Box_$514_storage",
+                            "typeString": "struct DonutBox.Box storage ref"
+                          }
+                        },
+                        "id": 608,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1268:7:3",
+                        "memberName": "balance",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 510,
+                        "src": "1254:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "VariableDeclarationStatement",
+                      "src": "1236:39:3"
+                    },
+                    {
+                      "assignments": [
+                        611
+                      ],
+                      "declarations": [
+                        {
+                          "constant": false,
+                          "id": 611,
+                          "mutability": "mutable",
+                          "name": "deposited",
+                          "nameLocation": "1298:9:3",
+                          "nodeType": "VariableDeclaration",
+                          "scope": 630,
+                          "src": "1290:17:3",
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "typeName": {
+                            "id": 610,
+                            "name": "uint256",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1290:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "visibility": "internal"
+                        }
+                      ],
+                      "id": 615,
+                      "initialValue": {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 614,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "id": 612,
+                          "name": "balance",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 604,
+                          "src": "1310:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "+",
+                        "rightExpression": {
+                          "id": 613,
+                          "name": "_amount",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 600,
+                          "src": "1320:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "1310:17:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "VariableDeclarationStatement",
+                      "src": "1290:37:3"
+                    },
+                    {
+                      "condition": {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 618,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "id": 616,
+                          "name": "deposited",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 611,
+                          "src": "1346:9:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "<",
+                        "rightExpression": {
+                          "id": 617,
+                          "name": "balance",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 604,
+                          "src": "1358:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "1346:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      "id": 622,
+                      "nodeType": "IfStatement",
+                      "src": "1342:56:3",
+                      "trueBody": {
+                        "errorCall": {
+                          "arguments": [],
+                          "expression": {
+                            "argumentTypes": [],
+                            "id": 619,
+                            "name": "BalanceDepositOverflow",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 503,
+                            "src": "1374:22:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 620,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1374:24:3",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 621,
+                        "nodeType": "RevertStatement",
+                        "src": "1367:31:3"
+                      }
+                    },
+                    {
+                      "expression": {
+                        "id": 628,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftHandSide": {
+                          "expression": {
+                            "baseExpression": {
+                              "id": 623,
+                              "name": "_boxes",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 519,
+                              "src": "1413:6:3",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
+                                "typeString": "mapping(address => struct DonutBox.Box storage ref)"
+                              }
+                            },
+                            "id": 625,
+                            "indexExpression": {
+                              "id": 624,
+                              "name": "_user",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 598,
+                              "src": "1420:5:3",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "1413:13:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Box_$514_storage",
+                              "typeString": "struct DonutBox.Box storage ref"
+                            }
+                          },
+                          "id": 626,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberLocation": "1427:7:3",
+                          "memberName": "balance",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 510,
+                          "src": "1413:21:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "Assignment",
+                        "operator": "=",
+                        "rightHandSide": {
+                          "id": 627,
+                          "name": "deposited",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 611,
+                          "src": "1437:9:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "1413:33:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 629,
+                      "nodeType": "ExpressionStatement",
+                      "src": "1413:33:3"
+                    }
+                  ]
+                }
+              ]
+            },
+            "id": 632,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_deposit",
+            "nameLocation": "1142:8:3",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 601,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 598,
+                  "mutability": "mutable",
+                  "name": "_user",
+                  "nameLocation": "1159:5:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 632,
+                  "src": "1151:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 597,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1151:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 600,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nameLocation": "1174:7:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 632,
+                  "src": "1166:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 599,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1166:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1150:32:3"
+            },
+            "returnParameters": {
+              "id": 602,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1200:0:3"
+            },
+            "scope": 691,
+            "src": "1133:332:3",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 663,
+              "nodeType": "Block",
+              "src": "1541:220:3",
+              "statements": [
+                {
+                  "id": 662,
+                  "nodeType": "UncheckedBlock",
+                  "src": "1552:202:3",
+                  "statements": [
+                    {
+                      "assignments": [
+                        640
+                      ],
+                      "declarations": [
+                        {
+                          "constant": false,
+                          "id": 640,
+                          "mutability": "mutable",
+                          "name": "balance",
+                          "nameLocation": "1585:7:3",
+                          "nodeType": "VariableDeclaration",
+                          "scope": 662,
+                          "src": "1577:15:3",
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "typeName": {
+                            "id": 639,
+                            "name": "uint256",
+                            "nodeType": "ElementaryTypeName",
+                            "src": "1577:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "visibility": "internal"
+                        }
+                      ],
+                      "id": 645,
+                      "initialValue": {
+                        "expression": {
+                          "baseExpression": {
+                            "id": 641,
+                            "name": "_boxes",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 519,
+                            "src": "1595:6:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
+                              "typeString": "mapping(address => struct DonutBox.Box storage ref)"
+                            }
+                          },
+                          "id": 643,
+                          "indexExpression": {
+                            "id": 642,
+                            "name": "_user",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 634,
+                            "src": "1602:5:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_address",
+                              "typeString": "address"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "1595:13:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_struct$_Box_$514_storage",
+                            "typeString": "struct DonutBox.Box storage ref"
+                          }
+                        },
+                        "id": 644,
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "memberLocation": "1609:7:3",
+                        "memberName": "balance",
+                        "nodeType": "MemberAccess",
+                        "referencedDeclaration": 510,
+                        "src": "1595:21:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "nodeType": "VariableDeclarationStatement",
+                      "src": "1577:39:3"
+                    },
+                    {
+                      "condition": {
+                        "commonType": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        },
+                        "id": 648,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "id": 646,
+                          "name": "_amount",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 636,
+                          "src": "1635:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": ">",
+                        "rightExpression": {
+                          "id": 647,
+                          "name": "balance",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 640,
+                          "src": "1645:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "1635:17:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      },
+                      "id": 652,
+                      "nodeType": "IfStatement",
+                      "src": "1631:55:3",
+                      "trueBody": {
+                        "errorCall": {
+                          "arguments": [],
+                          "expression": {
+                            "argumentTypes": [],
+                            "id": 649,
+                            "name": "BalanceWithdrawOverflow",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 505,
+                            "src": "1661:23:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_function_error_pure$__$returns$__$",
+                              "typeString": "function () pure"
+                            }
+                          },
+                          "id": 650,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "kind": "functionCall",
+                          "lValueRequested": false,
+                          "nameLocations": [],
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "1661:25:3",
+                          "tryCall": false,
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_tuple$__$",
+                            "typeString": "tuple()"
+                          }
+                        },
+                        "id": 651,
+                        "nodeType": "RevertStatement",
+                        "src": "1654:32:3"
+                      }
+                    },
+                    {
+                      "expression": {
+                        "id": 660,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftHandSide": {
+                          "expression": {
+                            "baseExpression": {
+                              "id": 653,
+                              "name": "_boxes",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 519,
+                              "src": "1701:6:3",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
+                                "typeString": "mapping(address => struct DonutBox.Box storage ref)"
+                              }
+                            },
+                            "id": 655,
+                            "indexExpression": {
+                              "id": 654,
+                              "name": "_user",
+                              "nodeType": "Identifier",
+                              "overloadedDeclarations": [],
+                              "referencedDeclaration": 634,
+                              "src": "1708:5:3",
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_address",
+                                "typeString": "address"
+                              }
+                            },
+                            "isConstant": false,
+                            "isLValue": true,
+                            "isPure": false,
+                            "lValueRequested": false,
+                            "nodeType": "IndexAccess",
+                            "src": "1701:13:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_struct$_Box_$514_storage",
+                              "typeString": "struct DonutBox.Box storage ref"
+                            }
+                          },
+                          "id": 656,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": true,
+                          "memberLocation": "1715:7:3",
+                          "memberName": "balance",
+                          "nodeType": "MemberAccess",
+                          "referencedDeclaration": 510,
+                          "src": "1701:21:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "nodeType": "Assignment",
+                        "operator": "=",
+                        "rightHandSide": {
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "id": 659,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "leftExpression": {
+                            "id": 657,
+                            "name": "balance",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 640,
+                            "src": "1725:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "nodeType": "BinaryOperation",
+                          "operator": "-",
+                          "rightExpression": {
+                            "id": 658,
+                            "name": "_amount",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 636,
+                            "src": "1735:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_uint256",
+                              "typeString": "uint256"
+                            }
+                          },
+                          "src": "1725:17:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          }
+                        },
+                        "src": "1701:41:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_uint256",
+                          "typeString": "uint256"
+                        }
+                      },
+                      "id": 661,
+                      "nodeType": "ExpressionStatement",
+                      "src": "1701:41:3"
+                    }
+                  ]
+                }
+              ]
+            },
+            "id": 664,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "_withdraw",
+            "nameLocation": "1482:9:3",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 637,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 634,
+                  "mutability": "mutable",
+                  "name": "_user",
+                  "nameLocation": "1500:5:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 664,
+                  "src": "1492:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 633,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1492:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 636,
+                  "mutability": "mutable",
+                  "name": "_amount",
+                  "nameLocation": "1515:7:3",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 664,
+                  "src": "1507:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  },
+                  "typeName": {
+                    "id": 635,
+                    "name": "uint256",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "1507:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "visibility": "internal"
+                }
+              ],
+              "src": "1491:32:3"
+            },
+            "returnParameters": {
+              "id": 638,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "1541:0:3"
+            },
+            "scope": 691,
+            "src": "1473:288:3",
+            "stateMutability": "nonpayable",
+            "virtual": true,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 676,
+              "nodeType": "Block",
+              "src": "1843:39:3",
               "statements": [
                 {
                   "expression": {
                     "baseExpression": {
-                      "id": 606,
+                      "id": 672,
                       "name": "_boxes",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 521,
-                      "src": "1156:6:3",
+                      "referencedDeclaration": 519,
+                      "src": "1861:6:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                        "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                         "typeString": "mapping(address => struct DonutBox.Box storage ref)"
                       }
                     },
-                    "id": 608,
+                    "id": 674,
                     "indexExpression": {
-                      "id": 607,
-                      "name": "user",
+                      "id": 673,
+                      "name": "_user",
                       "nodeType": "Identifier",
                       "overloadedDeclarations": [],
-                      "referencedDeclaration": 600,
-                      "src": "1163:4:3",
+                      "referencedDeclaration": 666,
+                      "src": "1868:5:3",
                       "typeDescriptions": {
                         "typeIdentifier": "t_address",
                         "typeString": "address"
@@ -1242,39 +2091,39 @@
                     "isPure": false,
                     "lValueRequested": false,
                     "nodeType": "IndexAccess",
-                    "src": "1156:12:3",
+                    "src": "1861:13:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Box_$516_storage",
+                      "typeIdentifier": "t_struct$_Box_$514_storage",
                       "typeString": "struct DonutBox.Box storage ref"
                     }
                   },
-                  "functionReturnParameters": 605,
-                  "id": 609,
+                  "functionReturnParameters": 671,
+                  "id": 675,
                   "nodeType": "Return",
-                  "src": "1149:19:3"
+                  "src": "1854:20:3"
                 }
               ]
             },
-            "id": 611,
+            "id": 677,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_boxOf",
-            "nameLocation": "1074:6:3",
+            "nameLocation": "1778:6:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 601,
+              "id": 667,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 600,
+                  "id": 666,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "1089:4:3",
+                  "name": "_user",
+                  "nameLocation": "1793:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 611,
-                  "src": "1081:12:3",
+                  "scope": 677,
+                  "src": "1785:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1282,10 +2131,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 599,
+                    "id": 665,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1081:7:3",
+                    "src": "1785:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1295,87 +2144,87 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1080:14:3"
+              "src": "1784:15:3"
             },
             "returnParameters": {
-              "id": 605,
+              "id": 671,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 604,
+                  "id": 670,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 611,
-                  "src": "1126:10:3",
+                  "scope": 677,
+                  "src": "1831:10:3",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_struct$_Box_$516_memory_ptr",
+                    "typeIdentifier": "t_struct$_Box_$514_memory_ptr",
                     "typeString": "struct DonutBox.Box"
                   },
                   "typeName": {
-                    "id": 603,
+                    "id": 669,
                     "nodeType": "UserDefinedTypeName",
                     "pathNode": {
-                      "id": 602,
+                      "id": 668,
                       "name": "Box",
                       "nameLocations": [
-                        "1126:3:3"
+                        "1831:3:3"
                       ],
                       "nodeType": "IdentifierPath",
-                      "referencedDeclaration": 516,
-                      "src": "1126:3:3"
+                      "referencedDeclaration": 514,
+                      "src": "1831:3:3"
                     },
-                    "referencedDeclaration": 516,
-                    "src": "1126:3:3",
+                    "referencedDeclaration": 514,
+                    "src": "1831:3:3",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_struct$_Box_$516_storage_ptr",
+                      "typeIdentifier": "t_struct$_Box_$514_storage_ptr",
                       "typeString": "struct DonutBox.Box"
                     }
                   },
                   "visibility": "internal"
                 }
               ],
-              "src": "1125:12:3"
+              "src": "1830:12:3"
             },
-            "scope": 655,
-            "src": "1065:111:3",
+            "scope": 691,
+            "src": "1769:113:3",
             "stateMutability": "view",
             "virtual": true,
             "visibility": "internal"
           },
           {
             "body": {
-              "id": 623,
+              "id": 689,
               "nodeType": "Block",
-              "src": "1258:46:3",
+              "src": "1965:47:3",
               "statements": [
                 {
                   "expression": {
                     "expression": {
                       "baseExpression": {
-                        "id": 618,
+                        "id": 684,
                         "name": "_boxes",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 521,
-                        "src": "1276:6:3",
+                        "referencedDeclaration": 519,
+                        "src": "1983:6:3",
                         "typeDescriptions": {
-                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
+                          "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$514_storage_$",
                           "typeString": "mapping(address => struct DonutBox.Box storage ref)"
                         }
                       },
-                      "id": 620,
+                      "id": 686,
                       "indexExpression": {
-                        "id": 619,
-                        "name": "user",
+                        "id": 685,
+                        "name": "_user",
                         "nodeType": "Identifier",
                         "overloadedDeclarations": [],
-                        "referencedDeclaration": 613,
-                        "src": "1283:4:3",
+                        "referencedDeclaration": 679,
+                        "src": "1990:5:3",
                         "typeDescriptions": {
                           "typeIdentifier": "t_address",
                           "typeString": "address"
@@ -1386,54 +2235,54 @@
                       "isPure": false,
                       "lValueRequested": false,
                       "nodeType": "IndexAccess",
-                      "src": "1276:12:3",
+                      "src": "1983:13:3",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_struct$_Box_$516_storage",
+                        "typeIdentifier": "t_struct$_Box_$514_storage",
                         "typeString": "struct DonutBox.Box storage ref"
                       }
                     },
-                    "id": 621,
+                    "id": 687,
                     "isConstant": false,
                     "isLValue": true,
                     "isPure": false,
                     "lValueRequested": false,
-                    "memberLocation": "1289:7:3",
+                    "memberLocation": "1997:7:3",
                     "memberName": "balance",
                     "nodeType": "MemberAccess",
-                    "referencedDeclaration": 512,
-                    "src": "1276:20:3",
+                    "referencedDeclaration": 510,
+                    "src": "1983:21:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
                     }
                   },
-                  "functionReturnParameters": 617,
-                  "id": 622,
+                  "functionReturnParameters": 683,
+                  "id": 688,
                   "nodeType": "Return",
-                  "src": "1269:27:3"
+                  "src": "1976:28:3"
                 }
               ]
             },
-            "id": 624,
+            "id": 690,
             "implemented": true,
             "kind": "function",
             "modifiers": [],
             "name": "_balanceOf",
-            "nameLocation": "1193:10:3",
+            "nameLocation": "1899:10:3",
             "nodeType": "FunctionDefinition",
             "parameters": {
-              "id": 614,
+              "id": 680,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 613,
+                  "id": 679,
                   "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "1212:4:3",
+                  "name": "_user",
+                  "nameLocation": "1918:5:3",
                   "nodeType": "VariableDeclaration",
-                  "scope": 624,
-                  "src": "1204:12:3",
+                  "scope": 690,
+                  "src": "1910:13:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1441,10 +2290,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 612,
+                    "id": 678,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1204:7:3",
+                    "src": "1910:7:3",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -1454,21 +2303,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1203:14:3"
+              "src": "1909:15:3"
             },
             "returnParameters": {
-              "id": 617,
+              "id": 683,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 616,
+                  "id": 682,
                   "mutability": "mutable",
                   "name": "",
                   "nameLocation": "-1:-1:-1",
                   "nodeType": "VariableDeclaration",
-                  "scope": 624,
-                  "src": "1249:7:3",
+                  "scope": 690,
+                  "src": "1956:7:3",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -1476,10 +2325,10 @@
                     "typeString": "uint256"
                   },
                   "typeName": {
-                    "id": 615,
+                    "id": 681,
                     "name": "uint256",
                     "nodeType": "ElementaryTypeName",
-                    "src": "1249:7:3",
+                    "src": "1956:7:3",
                     "typeDescriptions": {
                       "typeIdentifier": "t_uint256",
                       "typeString": "uint256"
@@ -1488,367 +2337,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "1248:9:3"
+              "src": "1955:9:3"
             },
-            "scope": 655,
-            "src": "1184:120:3",
+            "scope": 691,
+            "src": "1890:122:3",
             "stateMutability": "view",
-            "virtual": true,
-            "visibility": "internal"
-          },
-          {
-            "body": {
-              "id": 638,
-              "nodeType": "Block",
-              "src": "1377:49:3",
-              "statements": [
-                {
-                  "expression": {
-                    "id": 636,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "expression": {
-                        "baseExpression": {
-                          "id": 631,
-                          "name": "_boxes",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "1388:6:3",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
-                            "typeString": "mapping(address => struct DonutBox.Box storage ref)"
-                          }
-                        },
-                        "id": 633,
-                        "indexExpression": {
-                          "id": 632,
-                          "name": "user",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 626,
-                          "src": "1395:4:3",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        },
-                        "isConstant": false,
-                        "isLValue": true,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "nodeType": "IndexAccess",
-                        "src": "1388:12:3",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Box_$516_storage",
-                          "typeString": "struct DonutBox.Box storage ref"
-                        }
-                      },
-                      "id": 634,
-                      "isConstant": false,
-                      "isLValue": true,
-                      "isPure": false,
-                      "lValueRequested": true,
-                      "memberLocation": "1401:7:3",
-                      "memberName": "balance",
-                      "nodeType": "MemberAccess",
-                      "referencedDeclaration": 512,
-                      "src": "1388:20:3",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "+=",
-                    "rightHandSide": {
-                      "id": 635,
-                      "name": "amount",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 628,
-                      "src": "1412:6:3",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "src": "1388:30:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 637,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1388:30:3"
-                }
-              ]
-            },
-            "id": 639,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "_deposit",
-            "nameLocation": "1321:8:3",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 629,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 626,
-                  "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "1338:4:3",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 639,
-                  "src": "1330:12:3",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 625,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1330:7:3",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 628,
-                  "mutability": "mutable",
-                  "name": "amount",
-                  "nameLocation": "1352:6:3",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 639,
-                  "src": "1344:14:3",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 627,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1344:7:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "visibility": "internal"
-                }
-              ],
-              "src": "1329:30:3"
-            },
-            "returnParameters": {
-              "id": 630,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "1377:0:3"
-            },
-            "scope": 655,
-            "src": "1312:114:3",
-            "stateMutability": "nonpayable",
-            "virtual": true,
-            "visibility": "internal"
-          },
-          {
-            "body": {
-              "id": 653,
-              "nodeType": "Block",
-              "src": "1500:49:3",
-              "statements": [
-                {
-                  "expression": {
-                    "id": 651,
-                    "isConstant": false,
-                    "isLValue": false,
-                    "isPure": false,
-                    "lValueRequested": false,
-                    "leftHandSide": {
-                      "expression": {
-                        "baseExpression": {
-                          "id": 646,
-                          "name": "_boxes",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 521,
-                          "src": "1511:6:3",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_mapping$_t_address_$_t_struct$_Box_$516_storage_$",
-                            "typeString": "mapping(address => struct DonutBox.Box storage ref)"
-                          }
-                        },
-                        "id": 648,
-                        "indexExpression": {
-                          "id": 647,
-                          "name": "user",
-                          "nodeType": "Identifier",
-                          "overloadedDeclarations": [],
-                          "referencedDeclaration": 641,
-                          "src": "1518:4:3",
-                          "typeDescriptions": {
-                            "typeIdentifier": "t_address",
-                            "typeString": "address"
-                          }
-                        },
-                        "isConstant": false,
-                        "isLValue": true,
-                        "isPure": false,
-                        "lValueRequested": false,
-                        "nodeType": "IndexAccess",
-                        "src": "1511:12:3",
-                        "typeDescriptions": {
-                          "typeIdentifier": "t_struct$_Box_$516_storage",
-                          "typeString": "struct DonutBox.Box storage ref"
-                        }
-                      },
-                      "id": 649,
-                      "isConstant": false,
-                      "isLValue": true,
-                      "isPure": false,
-                      "lValueRequested": true,
-                      "memberLocation": "1524:7:3",
-                      "memberName": "balance",
-                      "nodeType": "MemberAccess",
-                      "referencedDeclaration": 512,
-                      "src": "1511:20:3",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "nodeType": "Assignment",
-                    "operator": "-=",
-                    "rightHandSide": {
-                      "id": 650,
-                      "name": "amount",
-                      "nodeType": "Identifier",
-                      "overloadedDeclarations": [],
-                      "referencedDeclaration": 643,
-                      "src": "1535:6:3",
-                      "typeDescriptions": {
-                        "typeIdentifier": "t_uint256",
-                        "typeString": "uint256"
-                      }
-                    },
-                    "src": "1511:30:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "id": 652,
-                  "nodeType": "ExpressionStatement",
-                  "src": "1511:30:3"
-                }
-              ]
-            },
-            "id": 654,
-            "implemented": true,
-            "kind": "function",
-            "modifiers": [],
-            "name": "_withdraw",
-            "nameLocation": "1443:9:3",
-            "nodeType": "FunctionDefinition",
-            "parameters": {
-              "id": 644,
-              "nodeType": "ParameterList",
-              "parameters": [
-                {
-                  "constant": false,
-                  "id": 641,
-                  "mutability": "mutable",
-                  "name": "user",
-                  "nameLocation": "1461:4:3",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 654,
-                  "src": "1453:12:3",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_address",
-                    "typeString": "address"
-                  },
-                  "typeName": {
-                    "id": 640,
-                    "name": "address",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1453:7:3",
-                    "stateMutability": "nonpayable",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_address",
-                      "typeString": "address"
-                    }
-                  },
-                  "visibility": "internal"
-                },
-                {
-                  "constant": false,
-                  "id": 643,
-                  "mutability": "mutable",
-                  "name": "amount",
-                  "nameLocation": "1475:6:3",
-                  "nodeType": "VariableDeclaration",
-                  "scope": 654,
-                  "src": "1467:14:3",
-                  "stateVariable": false,
-                  "storageLocation": "default",
-                  "typeDescriptions": {
-                    "typeIdentifier": "t_uint256",
-                    "typeString": "uint256"
-                  },
-                  "typeName": {
-                    "id": 642,
-                    "name": "uint256",
-                    "nodeType": "ElementaryTypeName",
-                    "src": "1467:7:3",
-                    "typeDescriptions": {
-                      "typeIdentifier": "t_uint256",
-                      "typeString": "uint256"
-                    }
-                  },
-                  "visibility": "internal"
-                }
-              ],
-              "src": "1452:30:3"
-            },
-            "returnParameters": {
-              "id": 645,
-              "nodeType": "ParameterList",
-              "parameters": [],
-              "src": "1500:0:3"
-            },
-            "scope": 655,
-            "src": "1434:115:3",
-            "stateMutability": "nonpayable",
             "virtual": true,
             "visibility": "internal"
           }
         ],
-        "scope": 656,
-        "src": "70:1482:3",
+        "scope": 692,
+        "src": "139:1876:3",
         "usedErrors": []
       }
     ],
-    "src": "42:1512:3"
+    "src": "42:1975:3"
   },
   "compiler": {
     "name": "solc",
@@ -1856,7 +2359,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-01T14:27:24.173Z",
+  "updatedAt": "2022-12-02T07:43:15.854Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

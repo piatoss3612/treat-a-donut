@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.5.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
+    "ethers": "^5.7.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
