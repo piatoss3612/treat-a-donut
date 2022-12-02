@@ -3,7 +3,8 @@ import { useContext } from "react";
 import { DonutContext } from "./context/context";
 
 function App() {
-  const { currentAccount, register, isLoading } = useContext(DonutContext);
+  const { currentAccount, register, unregister, isLoading } =
+    useContext(DonutContext);
 
   return (
     <div className="App">
@@ -24,7 +25,7 @@ function App() {
               : ``}
           </p>
           {currentAccount.isUser ? (
-            <button>unregister</button>
+            <button onClick={unregister}>unregister</button>
           ) : (
             <button onClick={register}>register</button>
           )}

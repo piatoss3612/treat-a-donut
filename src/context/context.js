@@ -77,7 +77,34 @@ export const DonutProvider = ({ children }) => {
       setIsLoading(true);
       const smartContract = loadSmartContract();
       const hash = smartContract.register();
-      await hash.wait();
+
+      if (hash.logs[0]) {
+        // display success dialog
+        console.log(hash.logs[0]);
+        loadCurrentAccount(currentAccount.address);
+        setIsLoading(false);
+      } else {
+        throw new Error(RegisterFailedErr);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [currentAccount.address, currentAccount.isUser, loadCurrentAccount]);
+
+  const unregister = useCallback(async () => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+      if (!currentAccount.address) {
+        throw new Error(NoAccountFoundErr);
+      }
+      if (currentAccount.isUser === false) return;
+      setIsLoading(true);
+      const smartContract = loadSmartContract();
+      const hash = smartContract.unregister();
 
       if (hash.logs[0]) {
         // display success dialog
@@ -144,7 +171,15 @@ export const DonutProvider = ({ children }) => {
   }, [addAccountChangeListener]);
 
   return (
-    <DonutContext.Provider value={{ currentAccount, register, isLoading }}>
+    <DonutContext.Provider
+      value={{
+        connectMetamask,
+        currentAccount,
+        register,
+        unregister,
+        isLoading,
+      }}
+    >
       {children}
     </DonutContext.Provider>
   );
