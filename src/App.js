@@ -5,22 +5,23 @@ import { DonutContext } from "./context/context";
 
 function App() {
   const { currentAccount } = useContext(DonutContext);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        <p>{currentAccount.address}</p>
+        <p>{`registered: ${currentAccount.isUser}`}</p>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          {currentAccount.isUser
+            ? `box state: ${currentAccount.box.state}`
+            : ``}
         </p>
-        <p>{currentAccount}</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <p>
+          {currentAccount.isUser
+            ? `balance: ${currentAccount.box.balance}`
+            : ``}
+        </p>
+        {currentAccount.isUser ? "" : <button>register</button>}
       </header>
     </div>
   );
