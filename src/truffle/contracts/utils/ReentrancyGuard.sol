@@ -3,12 +3,12 @@
 pragma solidity ^0.8.17;
 
 abstract contract ReentrancyGuard {
-    bool private locked;
+    bool private _locked;
 
     modifier lock() {
-        require(!locked, "reentrency not allowed");
-        locked = true;
+        require(!_locked, "reentrency detected");
+        _locked = true;
         _;
-        locked = false;
+        _locked = false;
     }
 }

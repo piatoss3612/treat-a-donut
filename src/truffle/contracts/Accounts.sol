@@ -6,16 +6,6 @@ import "./account/User.sol";
 import "./account/DonutBox.sol";
 
 contract Accounts is User, DonutBox {
-    function _register(address newUser) internal override(User) {
-        super._register(newUser);
-        _activateBox(newUser);
-    }
-
-    function _unregister(address userToDelete) internal override(User) {
-        super._unregister(userToDelete);
-        _deactivateBox(userToDelete);
-    }
-
     function _withdraw(
         address user,
         uint256 amount

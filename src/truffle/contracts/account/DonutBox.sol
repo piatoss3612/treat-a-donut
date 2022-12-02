@@ -2,7 +2,10 @@
 
 pragma solidity ^0.8.17;
 
-abstract contract DonutBox {
+error BalanceDepositOverflow();
+error BalanceWithdrawOverflow();
+
+contract DonutBox {
     enum BoxState {
         Disactivated,
         Activated
@@ -15,8 +18,8 @@ abstract contract DonutBox {
 
     mapping(address => Box) private _boxes;
 
-    modifier onlyActivatedBox(address user) {
-        require(_isBoxActivated(user), "not activated box");
+    modifier onlyActivatedBox(address _user) {
+        require(_isBoxActivated(_user), "not activated box");
         _;
     }
 
@@ -24,33 +27,42 @@ abstract contract DonutBox {
     event DonutBoxDeactivated(address indexed user, uint256 timestamp);
     event Withdrawn(address indexed user, uint256 amount, uint256 timestamp);
 
-    function _activateBox(address user) internal virtual {
-        _boxes[user].state = BoxState.Activated;
+    function _activateBox(address _user) internal virtual {
+        _boxes[_user].state = BoxState.Activated;
     }
 
-    function _deactivateBox(address user) internal virtual {
-        _boxes[user].state = BoxState.Disactivated;
+    function _deactivateBox(address _user) internal virtual {
+        _boxes[_user].state = BoxState.Disactivated;
     }
 
     function _isBoxActivated(
-        address user
+        address _user
     ) internal view virtual returns (bool) {
-        return _boxes[user].state == BoxState.Activated;
+        return _boxes[_user].state == BoxState.Activated;
     }
 
-    function _boxOf(address user) internal view virtual returns (Box memory) {
-        return _boxes[user];
+    function _deposit(address _user, uint256 _amount) internal virtual {
+        unchecked {
+            uint256 balance = _boxes[_user].balance;
+            uint256 deposited = balance + _amount;
+            if (deposited < balance) revert BalanceDepositOverflow();
+            _boxes[_user].balance = deposited;
+        }
     }
 
-    function _balanceOf(address user) internal view virtual returns (uint256) {
-        return _boxes[user].balance;
+    function _withdraw(address _user, uint256 _amount) internal virtual {
+        unchecked {
+            uint256 balance = _boxes[_user].balance;
+            if (_amount > balance) revert BalanceWithdrawOverflow();
+            _boxes[_user].balance = balance - _amount;
+        }
     }
 
-    function _deposit(address user, uint256 amount) internal virtual {
-        _boxes[user].balance += amount;
+    function _boxOf(address _user) internal view virtual returns (Box memory) {
+        return _boxes[_user];
     }
 
-    function _withdraw(address user, uint256 amount) internal virtual {
-        _boxes[user].balance -= amount;
+    function _balanceOf(address _user) internal view virtual returns (uint256) {
+        return _boxes[_user].balance;
     }
 }

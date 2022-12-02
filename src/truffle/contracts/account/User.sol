@@ -2,43 +2,46 @@
 
 pragma solidity ^0.8.17;
 
+error UserIndexToAddressNotMatched();
+
 abstract contract User {
     address[] private _users;
 
     mapping(address => bool) private _registered;
-    mapping(address => uint256) private _userIndexOnList;
+    mapping(address => uint256) private _userIndex;
 
     event UserRegistered(address user, bool success, uint256 timestamp);
     event UserUnregistered(address user, bool success, uint256 timestamp);
 
-    modifier onlyUser(address unidentified) {
-        require(_isUser(unidentified), "not a valid user");
+    modifier onlyUser(address _addr) {
+        require(_isUser(_addr), "not a valid user");
         _;
     }
 
-    function _register(address newUser) internal virtual {
-        _registered[newUser] = true;
+    function _register(address _newUser) internal virtual {
+        _registered[_newUser] = true;
 
-        _users.push(newUser);
-        _userIndexOnList[newUser] = _users.length - 1;
+        _users.push(_newUser);
+        _userIndex[_newUser] = _users.length - 1;
     }
 
-    function _unregister(address userToDelete) internal virtual {
-        uint256 index = _userIndexOnList[userToDelete];
+    function _unregister(address _userToDelete) internal virtual {
+        uint256 index = _userIndex[_userToDelete];
 
-        require(_users[index] == userToDelete, "user not found");
+        if (_users[index] != _userToDelete)
+            revert UserIndexToAddressNotMatched();
 
-        _registered[userToDelete] = false;
+        _registered[_userToDelete] = false;
 
         _users[index] = _users[_users.length - 1];
-        _userIndexOnList[_users[_users.length - 1]] = index;
+        _userIndex[_users[_users.length - 1]] = index;
 
         _users.pop();
-        delete _userIndexOnList[userToDelete];
+        delete _userIndex[_userToDelete];
     }
 
-    function _isUser(address user) internal view virtual returns (bool) {
-        return _registered[user];
+    function _isUser(address _addr) internal view virtual returns (bool) {
+        return _registered[_addr];
     }
 
     function _getUsers() internal view virtual returns (address[] memory) {

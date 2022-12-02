@@ -56,7 +56,7 @@ contract("TreatADonut", async (accounts) => {
       await contract.register({ from: accounts[1] }).should.be.rejected;
     });
 
-    it("use unregistered successfully", async () => {
+    it("user unregistered successfully", async () => {
       await contract.unregister({ from: accounts[1] });
 
       let ok = await contract.isUser(accounts[1]);

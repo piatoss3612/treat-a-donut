@@ -12,20 +12,34 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
     }
 
     function register() public {
-        require(!_isUser(msg.sender), "yet a valid user");
-        _register(msg.sender);
+        address newUser = msg.sender;
 
-        emit UserRegistered(msg.sender, true, block.timestamp);
-        emit DonutBoxActivated(msg.sender, block.timestamp);
+        require(!_isUser(newUser), "yet a valid user");
+        _register(newUser);
+
+        emit UserRegistered(newUser, true, block.timestamp);
+
+        if (!_isBoxActivated(newUser)) {
+            _activateBox(newUser);
+
+            emit DonutBoxActivated(newUser, block.timestamp);
+        }
     }
 
     function unregister() external onlyUser(msg.sender) {
         require(!_isOwner(), "not allowed for owner");
 
-        _unregister(msg.sender);
+        address userToDelete = msg.sender;
 
-        emit UserUnregistered(msg.sender, true, block.timestamp);
-        emit DonutBoxDeactivated(msg.sender, block.timestamp);
+        _unregister(userToDelete);
+
+        emit UserUnregistered(userToDelete, true, block.timestamp);
+
+        if (_isBoxActivated(userToDelete)) {
+            _deactivateBox(userToDelete);
+
+            emit DonutBoxDeactivated(userToDelete, block.timestamp);
+        }
     }
 
     function activateBox() external onlyUser(msg.sender) {
@@ -46,40 +60,42 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
     }
 
     function withdraw(
-        uint256 amount
+        uint256 _amount
     ) external onlyUser(msg.sender) onlyActivatedBox(msg.sender) lock {
-        require(amount > 0, "zero amount not allowed");
-        require(_balanceOf(msg.sender) >= amount, "not enough balance");
+        require(_amount > 0, "zero amount not allowed");
+        require(_balanceOf(msg.sender) >= _amount, "not enough balance");
 
-        _withdraw(msg.sender, amount);
+        _withdraw(msg.sender, _amount);
 
-        emit Withdrawn(msg.sender, amount, block.timestamp);
+        emit Withdrawn(msg.sender, _amount, block.timestamp);
     }
 
     function supportDonut(
-        address to,
-        uint256 amount,
-        string memory message
-    ) external payable onlyUser(to) onlyActivatedBox(to) {
-        require(amount > 0, "zero amount not allowed");
-        require(msg.value >= DONUT * amount, "not enough payment");
+        address _to,
+        uint256 _amount,
+        string memory _message
+    ) external payable onlyUser(_to) onlyActivatedBox(_to) {
+        require(_amount > 0, "zero amount not allowed");
 
-        _transferExceptFee(to, amount);
-        _addSupportReceipt(msg.sender, to, amount, message);
+        uint256 totalPayment = _calculateTotalPayment(_amount);
+        require(msg.value >= totalPayment, "not enough payment");
 
-        emit DonutSupported(msg.sender, to, amount, block.timestamp);
+        _transferExceptFee(_to, totalPayment);
+        _addSupportReceipt(msg.sender, _to, _amount, _message);
+
+        emit DonutSupported(msg.sender, _to, _amount, block.timestamp);
     }
 
     function getReceiptsOfSupporter(
-        address supporter
+        address _supporter
     ) external view returns (SupportReceipt[] memory) {
-        return _getReceiptsOfSupporter(supporter);
+        return _getReceiptsOfSupporter(_supporter);
     }
 
     function getReceiptsOfBeneficiary(
-        address beneficiary
+        address _beneficiary
     ) external view returns (SupportReceipt[] memory) {
-        return _getReceiptsOfBeneficiary(beneficiary);
+        return _getReceiptsOfBeneficiary(_beneficiary);
     }
 
     function isUser(address _user) external view returns (bool) {
@@ -90,8 +106,8 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
         return _getUsers();
     }
 
-    function boxOf(address user) external view returns (Box memory) {
-        return _boxOf(user);
+    function boxOf(address _user) external view returns (Box memory) {
+        return _boxOf(_user);
     }
 
     function destroyContract() external onlyOwner lock {
