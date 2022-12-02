@@ -6,9 +6,18 @@ require("chai").use(require("chai-as-promised")).should();
 
 contract("TreatADonut", async (accounts) => {
   let contract;
+  let owner;
+  let donut;
+  let from;
+  let to;
+  let amount;
+  let message;
+  let payment;
+  let box;
 
   before(async () => {
     contract = await TreatADonut.deployed();
+    donut = await contract.DONUT();
   });
 
   describe("deployment", async () => {
@@ -21,22 +30,22 @@ contract("TreatADonut", async (accounts) => {
     });
 
     it("registered owner as user successfully", async () => {
-      const owner = await contract.owner();
+      owner = await contract.owner();
       let ok = await contract.isUser(owner);
       assert.equal(ok, true);
 
-      const users = await contract.getUsers();
+      let users = await contract.getUsers();
       assert.equal(users.length, 1);
     });
   });
 
-  describe("access control", async () => {
+  describe("account", async () => {
     it("owner rejected to re-register", async () => {
-      await contract.unregister({ from: accounts[0] }).should.be.rejected;
+      await contract.unregister({ from: owner }).should.be.rejected;
     });
 
     it("owner rejected to unregister", async () => {
-      await contract.register({ from: accounts[0] }).should.be.rejected;
+      await contract.register({ from: owner }).should.be.rejected;
     });
 
     it("user registered successfully", async () => {
@@ -72,178 +81,188 @@ contract("TreatADonut", async (accounts) => {
 
   describe("support", async () => {
     it("user support five donuts to user successfully", async () => {
-      await contract.register({ from: accounts[1] });
+      from = accounts[0];
+      to = accounts[1];
+      amount = 5;
+      message = "user";
 
-      const donut = await contract.DONUT();
-      let amount = 5;
-      let payment = donut.toNumber() * amount;
-      let message = "user";
+      await contract.register({ from: to });
 
-      let box = await contract.boxOf(accounts[1]);
-      let balance = box.balance;
-
-      const hash = await contract.supportDonut(accounts[1], amount, message, {
-        from: accounts[0],
-        value: payment,
-      });
-
-      const supportLog = hash.logs[0].args;
-
-      assert.equal(supportLog.from, accounts[0]);
-      assert.equal(supportLog.to, accounts[1]);
-      assert.equal(supportLog.amount, amount);
-
-      let receiptsOfBeneficiary = await contract.getReceiptsOfBeneficiary(
-        accounts[1]
-      );
-      assert.equal(receiptsOfBeneficiary.length, 1);
-      assert.equal(receiptsOfBeneficiary[0].message, message);
-
-      let receiptsOfSupporter = await contract.getReceiptsOfSupporter(
-        accounts[0]
-      );
-      assert.equal(receiptsOfSupporter.length, 1);
-
-      let fee = payment / 100;
-      let deposited = payment - fee;
-      box = await contract.boxOf(accounts[1]);
-      balance = web3.utils
-        .toBN(balance)
-        .add(web3.utils.toBN(deposited))
-        .toString();
-      assert.equal(box.balance, balance);
+      await testSupportDonut(1, 1);
     });
 
     it("unidentified support five donuts to user successfully", async () => {
-      const donut = await contract.DONUT();
-      let amount = 5;
-      let payment = donut.toNumber() * amount;
-      let message = "unidentified";
+      from = accounts[2];
+      message = "unidentified";
 
-      let box = await contract.boxOf(accounts[1]);
-      let balance = box.balance;
-
-      const hash = await contract.supportDonut(accounts[1], amount, message, {
-        from: accounts[2],
-        value: payment,
-      });
-
-      const supportLog = hash.logs[0].args;
-
-      assert.equal(supportLog.from, accounts[2]);
-      assert.equal(supportLog.to, accounts[1]);
-      assert.equal(supportLog.amount, amount);
-
-      let receiptsOfBeneficiary = await contract.getReceiptsOfBeneficiary(
-        accounts[1]
-      );
-      assert.equal(receiptsOfBeneficiary.length, 2);
-      assert.equal(receiptsOfBeneficiary[1].message, message);
-
-      let receiptsOfSupporter = await contract.getReceiptsOfSupporter(
-        accounts[2]
-      );
-      assert.equal(receiptsOfSupporter.length, 1);
-
-      let fee = payment / 100;
-      let deposited = payment - fee;
-      box = await contract.boxOf(accounts[1]);
-      balance = web3.utils
-        .toBN(balance)
-        .add(web3.utils.toBN(deposited))
-        .toString();
-      assert.equal(box.balance, balance);
+      await testSupportDonut(2, 1);
     });
 
     it("rejected to support zero donut to user", async () => {
-      const donut = await contract.DONUT();
-      let zeroAmount = 0;
-      let payment = donut.toNumber() * zeroAmount;
-      let message = "zero amount not allowed";
+      from = accounts[0];
+      amount = 0;
+      message = "zero amount not allowed";
 
-      await contract.supportDonut(accounts[1], zeroAmount, message, {
-        from: accounts[0],
-        value: payment,
-      }).should.be.rejected;
+      await supportDonut().should.be.rejected;
     });
 
     it("rejected to support five donuts to user with insufficient payment", async () => {
-      const donut = await contract.DONUT();
-      let amount = 5;
-      let insufficientPayment = donut.toNumber() * (amount - 1);
-      let message = "not enough payment";
+      amount = 5;
+      message = "not enough payment";
 
-      await contract.supportDonut(accounts[1], amount, message, {
-        from: accounts[0],
-        value: insufficientPayment,
+      await contract.supportDonut(to, amount, message, {
+        from: from,
+        value: payment,
       }).should.be.rejected;
     });
 
     it("rejected to support five donuts to invalid user", async () => {
-      const donut = await contract.DONUT();
-      let amount = 5;
-      let payment = donut.toNumber() * amount;
-      let message = "invalid user";
+      to = accounts[2];
+      amount = 5;
+      message = "invalid user";
 
-      await contract.supportDonut(accounts[2], amount, message, {
-        from: accounts[0],
-        value: payment,
-      }).should.be.rejected;
+      await supportDonut().should.be.rejected;
     });
   });
 
   describe("donut box", async () => {
     it("deactivated box successfully", async () => {
-      await contract.deactivateBox({ from: accounts[1] });
-      let box = await contract.boxOf(accounts[1]);
-
-      assert.equal(box.state, 0);
+      from = accounts[1];
+      await contract.deactivateBox({ from: from });
+      testBoxState(0);
     });
 
     it("rejected to deactivate deactivated box", async () => {
-      await contract.deactivateBox({ from: accounts[1] }).should.be.rejected;
+      await contract.deactivateBox({ from: from }).should.be.rejected;
     });
 
     it("rejected to withdraw balance from deactivated box", async () => {
-      let box = await contract.boxOf(accounts[1]);
-      await contract.withdraw(box.balance, { from: accounts[1] }).should.be
-        .rejected;
+      await contract.withdraw(box.balance, { from: from }).should.be.rejected;
     });
 
     it("activated box successfully", async () => {
-      await contract.activateBox({ from: accounts[1] });
-      let box = await contract.boxOf(accounts[1]);
-
-      assert.equal(box.state, 1);
+      await contract.activateBox({ from: from });
+      testBoxState(1);
     });
+  });
 
+  describe("withdraw", async () => {
     it("rejected to withdraw zero amount", async () => {
-      await contract.withdraw(0, { from: accounts[1] }).should.be.rejected;
+      await contract.withdraw(0, { from: from }).should.be.rejected;
     });
 
     it("rejected to withdraw an excess of amount", async () => {
       await contract.withdraw(web3.utils.toWei("1", "ether"), {
-        from: accounts[1],
+        from: from,
       }).should.be.rejected;
     });
 
     it("withdrawn all available amount from box successfully", async () => {
-      let box = await contract.boxOf(accounts[1]);
-      let amount = box.balance;
-      let hash = await contract.withdraw(amount, { from: accounts[1] });
+      box = await contract.boxOf(from);
+      let available = box.balance;
+      let hash = await contract.withdraw(available, { from: from });
 
       let withdrawnLog = hash.logs[0].args;
 
-      assert.equal(withdrawnLog.amount, amount);
+      assert.equal(withdrawnLog.amount, available);
 
-      box = await contract.boxOf(accounts[1]);
-      assert.equal(box.balance, "0");
+      box = await contract.boxOf(from);
+      assert.equal("0", box.balance);
+    });
+  });
+
+  describe("transfer ownership", async () => {
+    it("transferred ownership successfully", async () => {
+      let newOwner = accounts[3];
+      let previousOwner = owner;
+      const hash = await contract.transferOwnership(newOwner, {
+        from: previousOwner,
+      });
+      const ownershipLog = hash.logs[0].args;
+
+      assert.equal(previousOwner, ownershipLog.previousOwner);
+      assert.equal(newOwner, ownershipLog.newOwner);
+
+      owner = await contract.owner();
+      assert.equal(newOwner, owner);
     });
   });
 
   describe("destruction", async () => {
     it("destroyed smart contract successfully", async () => {
-      await contract.destroyContract().should.be.ok;
+      from = accounts[0];
+      to = accounts[1];
+      amount = 5;
+      message = "destroy smart contract";
+
+      await supportDonut();
+
+      let beforeDestruction = parseInt(
+        await web3.eth.getBalance(accounts[1]),
+        10
+      );
+
+      await contract.destroyContract({ from: owner });
+
+      let expected = beforeDestruction + payment;
+
+      let afterDestruction = parseInt(
+        await web3.eth.getBalance(accounts[1]),
+        10
+      );
+
+      assert.isAbove(afterDestruction, beforeDestruction);
+      assert.isAtMost(afterDestruction, expected);
     });
   });
+
+  const testSupportDonut = async (
+    expectedLenOfBeneficiary,
+    expectedLenOfSupporter
+  ) => {
+    box = await contract.boxOf(to);
+    let balanceBeforeSupport = box.balance;
+
+    const supportLog = await supportDonut(from, to, amount, message);
+    assert.equal(supportLog.from, from);
+    assert.equal(supportLog.to, to);
+    assert.equal(supportLog.amount, amount);
+
+    let receiptsOfBeneficiary = await contract.getReceiptsOfBeneficiary(to);
+    let length = receiptsOfBeneficiary.length;
+    assert.equal(expectedLenOfBeneficiary, length);
+    assert.equal(receiptsOfBeneficiary[length - 1].message, message);
+
+    let receiptsOfSupporter = await contract.getReceiptsOfSupporter(from);
+    length = receiptsOfSupporter.length;
+    assert.equal(expectedLenOfSupporter, length);
+    assert.equal(receiptsOfSupporter[length - 1].message, message);
+
+    let fee = payment / 100;
+    let deposited = payment - fee;
+    box = await contract.boxOf(to);
+
+    let expected = web3.utils
+      .toBN(balanceBeforeSupport)
+      .add(web3.utils.toBN(deposited))
+      .toString();
+    assert.equal(expected, box.balance);
+  };
+
+  const supportDonut = async () => {
+    payment = donut.toNumber() * amount;
+
+    const hash = await contract.supportDonut(to, amount, message, {
+      from: from,
+      value: payment,
+    });
+
+    return hash.logs[0].args;
+  };
+
+  const testBoxState = async (expected) => {
+    box = await contract.boxOf(from);
+
+    assert.equal(expected, box.state);
+  };
 });
