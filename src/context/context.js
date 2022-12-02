@@ -17,7 +17,6 @@ const MetamaskNotDetectedErr = "metamask not detected";
 const NoAccountFoundErr = "no account found";
 const UserCheckErr = "unable to check whether registered user or not";
 const DonutBoxLoadErr = "unable to load donut box";
-const RegisterFailedErr = "register failed";
 
 export const DonutContext = createContext();
 
@@ -67,6 +66,8 @@ export const DonutProvider = ({ children }) => {
 
   const register = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       if (!ethereum) {
         throw new Error(MetamaskNotDetectedErr);
       }
@@ -74,18 +75,18 @@ export const DonutProvider = ({ children }) => {
         throw new Error(NoAccountFoundErr);
       }
       if (currentAccount.isUser === true) return;
-      setIsLoading(true);
-      const smartContract = loadSmartContract();
-      const hash = smartContract.register();
 
-      if (hash.logs[0]) {
-        // display success dialog
-        console.log(hash.logs[0]);
-        loadCurrentAccount(currentAccount.address);
-        setIsLoading(false);
-      } else {
-        throw new Error(RegisterFailedErr);
-      }
+      const smartContract = loadSmartContract();
+      const transactionHash = await smartContract.register();
+
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+
+      console.log(transactionHash);
+      // display success dialog
+      loadCurrentAccount(currentAccount.address);
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       // display error dialog
@@ -95,6 +96,8 @@ export const DonutProvider = ({ children }) => {
 
   const unregister = useCallback(async () => {
     try {
+      setIsLoading(true);
+
       if (!ethereum) {
         throw new Error(MetamaskNotDetectedErr);
       }
@@ -102,18 +105,17 @@ export const DonutProvider = ({ children }) => {
         throw new Error(NoAccountFoundErr);
       }
       if (currentAccount.isUser === false) return;
-      setIsLoading(true);
       const smartContract = loadSmartContract();
-      const hash = smartContract.unregister();
+      const transactionHash = await smartContract.unregister();
 
-      if (hash.logs[0]) {
-        // display success dialog
-        console.log(hash.logs[0]);
-        loadCurrentAccount(currentAccount.address);
-        setIsLoading(false);
-      } else {
-        throw new Error(RegisterFailedErr);
-      }
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+
+      console.log(transactionHash);
+      // display success dialog
+      loadCurrentAccount(currentAccount.address);
+      setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
       // display error dialog

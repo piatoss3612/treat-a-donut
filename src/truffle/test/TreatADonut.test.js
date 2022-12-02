@@ -49,7 +49,8 @@ contract("TreatADonut", async (accounts) => {
     });
 
     it("user registered successfully", async () => {
-      await contract.register({ from: accounts[1] });
+      const hash = await contract.register({ from: accounts[1] });
+      console.log(hash);
 
       let ok = await contract.isUser(accounts[1]);
       assert.equal(ok, true);
