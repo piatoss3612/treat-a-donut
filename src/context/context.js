@@ -17,11 +17,13 @@ const MetamaskNotDetectedErr = "metamask not detected";
 const NoAccountFoundErr = "no account found";
 const UserCheckErr = "unable to check whether registered user or not";
 const DonutBoxLoadErr = "unable to load donut box";
+const RegisterFailedErr = "register failed";
 
 export const DonutContext = createContext();
 
 export const DonutProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState(initialUserInfo);
+  const [isLoading, setIsLoading] = useState(false);
 
   const loadSmartContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -35,7 +37,7 @@ export const DonutProvider = ({ children }) => {
     return smartContract;
   };
 
-  const loadUserInfo = useCallback(async (address) => {
+  const loadCurrentAccount = useCallback(async (address) => {
     try {
       if (!ethereum) {
         throw new Error(MetamaskNotDetectedErr);
@@ -63,25 +65,57 @@ export const DonutProvider = ({ children }) => {
     }
   }, []);
 
+  const register = useCallback(async () => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+      if (!currentAccount.address) {
+        throw new Error(NoAccountFoundErr);
+      }
+      if (currentAccount.isUser === true) return;
+      setIsLoading(true);
+      const smartContract = loadSmartContract();
+      const hash = smartContract.register();
+      await hash.wait();
+
+      if (hash.logs[0]) {
+        // display success dialog
+        console.log(hash.logs[0]);
+        loadCurrentAccount(currentAccount.address);
+        setIsLoading(false);
+      } else {
+        throw new Error(RegisterFailedErr);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [currentAccount.address, currentAccount.isUser, loadCurrentAccount]);
+
   const connectMetamask = useCallback(async () => {
     try {
       if (!ethereum) {
         throw new Error(MetamaskNotDetectedErr);
       }
+      setIsLoading(true);
 
       const accounts = await ethereum.request({
         method: "eth_requestAccounts",
       });
       if (accounts.length) {
-        loadUserInfo(accounts[0]);
+        loadCurrentAccount(accounts[0]);
       } else {
         throw new Error(NoAccountFoundErr);
       }
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       // display error dialog
       console.log(error);
     }
-  }, [loadUserInfo]);
+  }, [loadCurrentAccount]);
 
   const addAccountChangeListener = useCallback(() => {
     if (!currentAccount.address) {
@@ -89,13 +123,13 @@ export const DonutProvider = ({ children }) => {
     }
     ethereum.on("accountsChanged", function (accounts) {
       if (accounts.length) {
-        loadUserInfo(accounts[0]);
+        loadCurrentAccount(accounts[0]);
       } else {
         // display error dialog
         console.log(NoAccountFoundErr);
       }
     });
-  }, [connectMetamask, currentAccount.address, loadUserInfo]);
+  }, [connectMetamask, currentAccount.address, loadCurrentAccount]);
 
   useEffect(() => {
     try {
@@ -110,7 +144,7 @@ export const DonutProvider = ({ children }) => {
   }, [addAccountChangeListener]);
 
   return (
-    <DonutContext.Provider value={{ currentAccount }}>
+    <DonutContext.Provider value={{ currentAccount, register, isLoading }}>
       {children}
     </DonutContext.Provider>
   );
