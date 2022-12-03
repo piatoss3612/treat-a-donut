@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { DonutContext } from "./context/context";
 
 function App() {
-  const { currentAccount, register, unregister, isLoading } =
+  const { currentAccount, register, unregister, users, isLoading } =
     useContext(DonutContext);
 
   return (
@@ -29,6 +29,11 @@ function App() {
           ) : (
             <button onClick={register}>register</button>
           )}
+          <ul>
+            {users.map((user, idx) => (
+              <li key={idx}>{user}</li>
+            ))}
+          </ul>
         </div>
       )}
     </div>
