@@ -26,8 +26,9 @@ export const DonutProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
   const [to, setTo] = useState("");
-  const [amount, setAmount] = useState(0);
+  const [donutAmount, setDonutAmount] = useState(0);
   const [message, setMessage] = useState("");
+  const [withdrawAmount, setWithdrawAmount] = useState(0);
 
   const loadSmartContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -274,12 +275,12 @@ export const DonutProvider = ({ children }) => {
       if (isUser === true) {
         const DONUT = await smartContract.DONUT();
         let payment = ethers.BigNumber.from(DONUT).mul(
-          ethers.BigNumber.from(amount)
+          ethers.BigNumber.from(donutAmount)
         );
 
         const transactionHash = await smartContract.supportDonut(
           to,
-          amount,
+          donutAmount,
           message,
           { value: payment }
         );
@@ -299,7 +300,46 @@ export const DonutProvider = ({ children }) => {
       // display error dialog
       console.log(error);
     }
-  }, [amount, message, to]);
+  }, [donutAmount, message, to]);
+
+  const withdrawBalance = useCallback(async () => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+
+      if (!currentAccount.address) {
+        throw new Error(NoAccountFoundErr);
+      }
+      if (currentAccount.isUser === false) return;
+
+      setIsLoading(true);
+
+      const smartContract = loadSmartContract();
+
+      let amountToWei = ethers.utils.parseUnits(withdrawAmount, "ether");
+
+      const transactionHash = await smartContract.withdraw(amountToWei);
+
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+
+      console.log(transactionHash);
+      await loadCurrentAccount(currentAccount.address);
+      // display success dialog
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [
+    currentAccount.address,
+    currentAccount.isUser,
+    loadCurrentAccount,
+    withdrawAmount,
+  ]);
 
   const connectMetamask = useCallback(async () => {
     try {
@@ -364,8 +404,10 @@ export const DonutProvider = ({ children }) => {
         checkIfRegisteredUser,
         supportDonut,
         setTo,
-        setAmount,
+        setDonutAmount,
         setMessage,
+        withdrawBalance,
+        setWithdrawAmount,
         isLoading,
       }}
     >

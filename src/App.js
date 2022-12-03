@@ -12,8 +12,10 @@ function App() {
     users,
     supportDonut,
     setTo,
-    setAmount,
+    setDonutAmount,
     setMessage,
+    withdrawBalance,
+    setWithdrawAmount,
     isLoading,
   } = useContext(DonutContext);
 
@@ -54,9 +56,40 @@ function App() {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              supportDonut();
+              withdrawBalance();
+            }}
+            style={{
+              border: "1px solid black",
+              margin: "1em",
+              padding: "1em",
             }}
           >
+            <h3>Withdraw Balance</h3>
+            <p>
+              Amount:
+              <input
+                type="number"
+                step="any"
+                onChange={(e) => {
+                  setWithdrawAmount(e.target.value);
+                }}
+              />
+              <strong>eth</strong>
+            </p>
+            <button type="submit">Withdraw</button>
+          </form>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              supportDonut();
+            }}
+            style={{
+              border: "1px solid black",
+              margin: "1em",
+              padding: "1em",
+            }}
+          >
+            <h3>Support</h3>
             <p>
               To:
               <input
@@ -70,7 +103,7 @@ function App() {
               Amount:
               <input
                 type="number"
-                onChange={(e) => setAmount(e.target.value)}
+                onChange={(e) => setDonutAmount(e.target.value)}
               />
             </p>
             <p>
