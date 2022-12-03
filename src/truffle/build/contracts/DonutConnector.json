@@ -403,34 +403,34 @@
         103
       ],
       "BalanceDepositOverflow": [
-        503
+        511
       ],
       "BalanceWithdrawOverflow": [
-        505
+        513
       ],
       "BaseFeeCalculationToZero": [
-        924
+        932
       ],
       "BaseFeeExceptionOverflow": [
         109
       ],
       "DonutBox": [
-        691
+        699
       ],
       "DonutConnector": [
         145
       ],
       "Support": [
-        1178
+        1186
       ],
       "TotalPaymentCalculationOverflow": [
-        922
+        930
       ],
       "User": [
-        843
+        851
       ],
       "UserIndexToAddressNotMatched": [
-        695
+        703
       ]
     },
     "id": 146,
@@ -455,7 +455,7 @@
         "nameLocation": "-1:-1:-1",
         "nodeType": "ImportDirective",
         "scope": 146,
-        "sourceUnit": 1179,
+        "sourceUnit": 1187,
         "src": "70:32:1",
         "symbolAliases": [],
         "unitAlias": ""
@@ -512,7 +512,7 @@
                 "206:7:1"
               ],
               "nodeType": "IdentifierPath",
-              "referencedDeclaration": 1178,
+              "referencedDeclaration": 1186,
               "src": "206:7:1"
             },
             "id": 113,
@@ -527,10 +527,10 @@
         "id": 145,
         "linearizedBaseContracts": [
           145,
-          1178,
+          1186,
           103,
-          691,
-          843
+          699,
+          851
         ],
         "name": "DonutConnector",
         "nameLocation": "178:14:1",
@@ -607,7 +607,7 @@
                           "name": "_calculateBaseFee",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 1012,
+                          "referencedDeclaration": 1020,
                           "src": "372:17:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_pure$_t_uint256_$returns$_t_uint256_$",
@@ -802,7 +802,7 @@
                           "name": "_deposit",
                           "nodeType": "Identifier",
                           "overloadedDeclarations": [],
-                          "referencedDeclaration": 632,
+                          "referencedDeclaration": 640,
                           "src": "512:8:1",
                           "typeDescriptions": {
                             "typeIdentifier": "t_function_internal_nonpayable$_t_address_$_t_uint256_$returns$__$",
@@ -928,7 +928,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-02T07:43:15.828Z",
+  "updatedAt": "2022-12-03T11:30:00.633Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

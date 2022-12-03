@@ -75,6 +75,7 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
         uint256 _amount,
         string memory _message
     ) external payable onlyUser(_to) onlyActivatedBox(_to) {
+        require(_to != msg.sender, "supporting yourself not allowed");
         require(_amount > 0, "zero amount not allowed");
 
         uint256 totalPayment = _calculateTotalPayment(_amount);
