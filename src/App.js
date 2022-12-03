@@ -10,6 +10,10 @@ function App() {
     activateBox,
     deactivateBox,
     users,
+    supportDonut,
+    setTo,
+    setAmount,
+    setMessage,
     isLoading,
   } = useContext(DonutContext);
 
@@ -47,6 +51,39 @@ function App() {
           ) : (
             ""
           )}
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              supportDonut();
+            }}
+          >
+            <p>
+              To:
+              <input
+                type="text"
+                onChange={(e) => {
+                  setTo(e.target.value);
+                }}
+              />
+            </p>
+            <p>
+              Amount:
+              <input
+                type="number"
+                onChange={(e) => setAmount(e.target.value)}
+              />
+            </p>
+            <p>
+              Message:{" "}
+              <input
+                type="text"
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+              />
+            </p>
+            <button type="submit">Support</button>
+          </form>
           <ul>
             {users.map((user, idx) => (
               <li key={idx}>{user}</li>

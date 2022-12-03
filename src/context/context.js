@@ -25,6 +25,9 @@ export const DonutProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState(initialUserInfo);
   const [isLoading, setIsLoading] = useState(false);
   const [users, setUsers] = useState([]);
+  const [to, setTo] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [message, setMessage] = useState("");
 
   const loadSmartContract = () => {
     const provider = new ethers.providers.Web3Provider(ethereum);
@@ -253,6 +256,51 @@ export const DonutProvider = ({ children }) => {
     loadCurrentAccount,
   ]);
 
+  const supportDonut = useCallback(async () => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+
+      if (!to || !ethers.utils.isAddress(to))
+        throw new Error(InvalidAddressErr);
+
+      setIsLoading(true);
+
+      const smartContract = loadSmartContract();
+
+      const isUser = await smartContract.isUser(to);
+
+      if (isUser === true) {
+        const DONUT = await smartContract.DONUT();
+        let payment = ethers.BigNumber.from(DONUT).mul(
+          ethers.BigNumber.from(amount)
+        );
+
+        const transactionHash = await smartContract.supportDonut(
+          to,
+          amount,
+          message,
+          { value: payment }
+        );
+
+        console.log(`Loading - ${transactionHash.hash}`);
+        await transactionHash.wait();
+        console.log(`Success - ${transactionHash.hash}`);
+
+        console.log(transactionHash);
+        // display success dialog
+        setIsLoading(false);
+      } else {
+        throw new Error(UserCheckErr);
+      }
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [amount, message, to]);
+
   const connectMetamask = useCallback(async () => {
     try {
       if (!ethereum) {
@@ -314,6 +362,10 @@ export const DonutProvider = ({ children }) => {
         deactivateBox,
         users,
         checkIfRegisteredUser,
+        supportDonut,
+        setTo,
+        setAmount,
+        setMessage,
         isLoading,
       }}
     >
