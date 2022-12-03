@@ -49,8 +49,7 @@ contract("TreatADonut", async (accounts) => {
     });
 
     it("user registered successfully", async () => {
-      const hash = await contract.register({ from: accounts[1] });
-      console.log(hash);
+      await contract.register({ from: accounts[1] });
 
       let ok = await contract.isUser(accounts[1]);
       assert.equal(ok, true);
@@ -115,6 +114,13 @@ contract("TreatADonut", async (accounts) => {
         from: from,
         value: payment,
       }).should.be.rejected;
+    });
+
+    it("rejected to support on its own", async () => {
+      to = accounts[0];
+      message = "cannot support yourself";
+
+      await supportDonut().should.be.rejected;
     });
 
     it("rejected to support five donuts to invalid user", async () => {
