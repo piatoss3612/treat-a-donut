@@ -115,18 +115,18 @@
       "type": "event"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"UserRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"UserUnregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/Accounts.sol\":\"Accounts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/Accounts.sol\":{\"keccak256\":\"0x7c30cd709d8a797a3efe67280001456a76434c7b7e0c92619d0e050c615338fb\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://ea62a640d0258abc70c58a2f6493387fd4a3fb01d39f7f5b69985c5b70f49728\",\"dweb:/ipfs/Qmdgu6QbajrDVCUrThKDgFkwdYDpTwBv64c4brRZx1SvGK\"]},\"project:/contracts/account/DonutBox.sol\":{\"keccak256\":\"0x9a4b77aa9a685e31409be350dd1347dcba8511029854f6c90379bf0e6c7c584d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://63286d4b0196c44fe828d10aa1ed6bd0b68ccee43dc654b4d2ad7de633b81a73\",\"dweb:/ipfs/QmXDceRiVRSNDXnjCaP6EZPs8t7nFRSqU4i7FE5WJeqVyg\"]},\"project:/contracts/account/User.sol\":{\"keccak256\":\"0xa659797735420e690a98f1ecb3e73279d2787e5440571fc3dcdde15a3cfcd50d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://d26e02c42a96c1fb8693f0a71fead6ebd8a5b25e27ed6a649995e461d157abc4\",\"dweb:/ipfs/QmW66waDmmByijGiMRhUX6gstne6pJkopsRjkATbqCmTFB\"]}},\"version\":1}",
-  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea26469706673582212204dc9f3b7afb66caeb8ebc0169d0871d0ea4afbf9fbd2069a4069b2f3969cee0964736f6c63430008110033",
-  "deployedBytecode": "0x6080604052600080fdfea26469706673582212204dc9f3b7afb66caeb8ebc0169d0871d0ea4afbf9fbd2069a4069b2f3969cee0964736f6c63430008110033",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.17+commit.8df45f5f\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxActivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"DonutBoxDeactivated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"UserRegistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"success\",\"type\":\"bool\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"UserUnregistered\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"user\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"amount\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"timestamp\",\"type\":\"uint256\"}],\"name\":\"Withdrawn\",\"type\":\"event\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/src/contracts/Accounts.sol\":\"Accounts\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/src/contracts/Accounts.sol\":{\"keccak256\":\"0x7c30cd709d8a797a3efe67280001456a76434c7b7e0c92619d0e050c615338fb\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://ea62a640d0258abc70c58a2f6493387fd4a3fb01d39f7f5b69985c5b70f49728\",\"dweb:/ipfs/Qmdgu6QbajrDVCUrThKDgFkwdYDpTwBv64c4brRZx1SvGK\"]},\"project:/src/contracts/account/DonutBox.sol\":{\"keccak256\":\"0x9a4b77aa9a685e31409be350dd1347dcba8511029854f6c90379bf0e6c7c584d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://63286d4b0196c44fe828d10aa1ed6bd0b68ccee43dc654b4d2ad7de633b81a73\",\"dweb:/ipfs/QmXDceRiVRSNDXnjCaP6EZPs8t7nFRSqU4i7FE5WJeqVyg\"]},\"project:/src/contracts/account/User.sol\":{\"keccak256\":\"0xa659797735420e690a98f1ecb3e73279d2787e5440571fc3dcdde15a3cfcd50d\",\"license\":\"UNLICENSED\",\"urls\":[\"bzz-raw://d26e02c42a96c1fb8693f0a71fead6ebd8a5b25e27ed6a649995e461d157abc4\",\"dweb:/ipfs/QmW66waDmmByijGiMRhUX6gstne6pJkopsRjkATbqCmTFB\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea264697066735822122097b78287dc4ffb6729f98e7ec91111d641b305146482d4af4fac8e557a2f9e6464736f6c63430008110033",
+  "deployedBytecode": "0x6080604052600080fdfea264697066735822122097b78287dc4ffb6729f98e7ec91111d641b305146482d4af4fac8e557a2f9e6464736f6c63430008110033",
   "immutableReferences": {},
   "generatedSources": [],
   "deployedGeneratedSources": [],
   "sourceMap": "136:774:0:-:0;;;;;;;;;;;;;;;;;;;",
   "deployedSourceMap": "136:774:0:-:0;;;;;",
   "source": "// SPDX-License-Identifier: UNLICENSED\r\n\r\npragma solidity ^0.8.17;\r\n\r\nimport \"./account/User.sol\";\r\nimport \"./account/DonutBox.sol\";\r\n\r\ncontract Accounts is User, DonutBox {\r\n    function _withdraw(\r\n        address user,\r\n        uint256 amount\r\n    ) internal override(DonutBox) {\r\n        super._withdraw(user, amount);\r\n\r\n        (bool ok, ) = payable(user).call{value: amount}(\"\");\r\n        if (!ok) {\r\n            _deposit(user, amount);\r\n            revert(\"failed to withdraw balance\");\r\n        }\r\n    }\r\n\r\n    function _settleDonutBox(address user) internal {\r\n        uint256 balance = _balanceOf(user);\r\n        if (balance > 0) {\r\n            _withdraw(user, balance);\r\n        }\r\n    }\r\n\r\n    function _settleDonutBoxes() internal {\r\n        address[] memory users = _getUsers();\r\n\r\n        for (uint256 i = 0; i < users.length; i++) {\r\n            _settleDonutBox(users[i]);\r\n        }\r\n    }\r\n}\r\n",
-  "sourcePath": "C:\\Users\\LHH\\treat-a-donut\\src\\truffle\\contracts\\Accounts.sol",
+  "sourcePath": "C:\\Users\\LHH\\treat-a-donut\\src\\contracts\\Accounts.sol",
   "ast": {
-    "absolutePath": "project:/contracts/Accounts.sol",
+    "absolutePath": "project:/src/contracts/Accounts.sol",
     "exportedSymbols": {
       "Accounts": [
         103
@@ -163,7 +163,7 @@
         "src": "42:24:0"
       },
       {
-        "absolutePath": "project:/contracts/account/User.sol",
+        "absolutePath": "project:/src/contracts/account/User.sol",
         "file": "./account/User.sol",
         "id": 2,
         "nameLocation": "-1:-1:-1",
@@ -175,7 +175,7 @@
         "unitAlias": ""
       },
       {
-        "absolutePath": "project:/contracts/account/DonutBox.sol",
+        "absolutePath": "project:/src/contracts/account/DonutBox.sol",
         "file": "./account/DonutBox.sol",
         "id": 3,
         "nameLocation": "-1:-1:-1",
@@ -1423,7 +1423,7 @@
   },
   "networks": {},
   "schemaVersion": "3.4.10",
-  "updatedAt": "2022-12-03T11:30:00.628Z",
+  "updatedAt": "2022-12-03T16:26:35.169Z",
   "devdoc": {
     "kind": "dev",
     "methods": {},

@@ -56,6 +56,8 @@ module.exports = {
    *
    * $ truffle test --network <network-name>
    */
+  contracts_directory: "./src/contracts",
+  contracts_build_directory: "./src/abis",
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -101,6 +103,10 @@ module.exports = {
   // Set default mocha options here, use special reporters, etc.
   mocha: {
     // timeout: 100000
+    reporter: "eth-gas-reporter",
+    reporterOptions: {
+      src: "./src/contracts",
+    },
   },
 
   // Configure your compilers
