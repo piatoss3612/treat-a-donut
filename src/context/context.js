@@ -18,6 +18,7 @@ const NoAccountFoundErr = "no account found";
 const InvalidAddressErr = "address not valid";
 const UserCheckErr = "unable to check whether registered user or not";
 const DonutBoxLoadErr = "unable to load donut box";
+const ReceiptLoadErr = "Unable to load receipts";
 
 export const DonutContext = createContext();
 
@@ -341,6 +342,50 @@ export const DonutProvider = ({ children }) => {
     withdrawAmount,
   ]);
 
+  const loadReceiptsOfSupporter = useCallback(async (address) => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+
+      if (!ethers.utils.isAddress(address)) {
+        throw new Error(InvalidAddressErr);
+      }
+
+      const smartContract = loadSmartContract();
+      const receipts = await smartContract.getReceiptsOfSupporter(address);
+      if (!receipts) {
+        throw new Error(ReceiptLoadErr);
+      }
+      return receipts;
+    } catch (error) {
+      // display error dialog
+      console.log(error);
+    }
+  }, []);
+
+  const loadReceiptsOfBeneficiary = useCallback(async (address) => {
+    try {
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+
+      if (!ethers.utils.isAddress(address)) {
+        throw new Error(InvalidAddressErr);
+      }
+
+      const smartContract = loadSmartContract();
+      const receipts = await smartContract.getReceiptsOfBeneficiary(address);
+      if (!receipts) {
+        throw new Error(ReceiptLoadErr);
+      }
+      return receipts;
+    } catch (error) {
+      // display error dialog
+      console.log(error);
+    }
+  }, []);
+
   const connectMetamask = useCallback(async () => {
     try {
       if (!ethereum) {
@@ -408,6 +453,8 @@ export const DonutProvider = ({ children }) => {
         setMessage,
         withdrawBalance,
         setWithdrawAmount,
+        loadReceiptsOfSupporter,
+        loadReceiptsOfBeneficiary,
         isLoading,
       }}
     >

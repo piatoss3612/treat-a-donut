@@ -1,6 +1,7 @@
 import "./App.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DonutContext } from "./context/context";
+import { ethers } from "ethers";
 
 function App() {
   const {
@@ -16,8 +17,13 @@ function App() {
     setMessage,
     withdrawBalance,
     setWithdrawAmount,
+    loadReceiptsOfSupporter,
+    loadReceiptsOfBeneficiary,
     isLoading,
   } = useContext(DonutContext);
+
+  const [receiptsOfSupporter, setReceiptsOfSupporter] = useState([]);
+  const [receiptsOfBeneficiary, setReceiptsOfBeneficiary] = useState([]);
 
   return (
     <div className="App">
@@ -36,7 +42,9 @@ function App() {
           </p>
           <p>
             {currentAccount.isUser
-              ? `balance: ${currentAccount.box.balance}`
+              ? `balance: ${ethers.utils.formatEther(
+                  currentAccount.box.balance
+                )} eth`
               : ``}
           </p>
           {currentAccount.isUser ? (
@@ -120,6 +128,46 @@ function App() {
           <ul>
             {users.map((user, idx) => (
               <li key={idx}>{user}</li>
+            ))}
+          </ul>
+          <button
+            onClick={async () => {
+              const receipts = await loadReceiptsOfSupporter(
+                currentAccount.address
+              );
+              setReceiptsOfSupporter(receipts);
+            }}
+          >
+            Load Supporter Receipts
+          </button>
+          <ul>
+            {receiptsOfSupporter.map((receipt, idx) => (
+              <li key={idx} style={{ border: "1px solid black" }}>
+                <p>From: {receipt.from}</p>
+                <p>To: {receipt.to}</p>
+                <p>Amount: {receipt.amount.toString()} donut</p>
+                <p>Message: {receipt.message}</p>
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={async () => {
+              const receipts = await loadReceiptsOfBeneficiary(
+                currentAccount.address
+              );
+              setReceiptsOfBeneficiary(receipts);
+            }}
+          >
+            Load Beneficiary Receipts
+          </button>
+          <ul>
+            {receiptsOfBeneficiary.map((receipt, idx) => (
+              <li key={idx} style={{ border: "1px solid black" }}>
+                <p>From: {receipt.from}</p>
+                <p>To: {receipt.to}</p>
+                <p>Amount: {receipt.amount.toString()} donut</p>
+                <p>Message: {receipt.message}</p>
+              </li>
             ))}
           </ul>
         </div>
