@@ -3,8 +3,15 @@ import { useContext } from "react";
 import { DonutContext } from "./context/context";
 
 function App() {
-  const { currentAccount, register, unregister, users, isLoading } =
-    useContext(DonutContext);
+  const {
+    currentAccount,
+    register,
+    unregister,
+    activateBox,
+    deactivateBox,
+    users,
+    isLoading,
+  } = useContext(DonutContext);
 
   return (
     <div className="App">
@@ -16,8 +23,10 @@ function App() {
           <p>{`registered: ${currentAccount.isUser}`}</p>
           <p>
             {currentAccount.isUser
-              ? `box state: ${currentAccount.box.state}`
-              : ``}
+              ? `box state: ${
+                  currentAccount.box.state ? "activated" : "deactivated"
+                }`
+              : ""}
           </p>
           <p>
             {currentAccount.isUser
@@ -28,6 +37,15 @@ function App() {
             <button onClick={unregister}>unregister</button>
           ) : (
             <button onClick={register}>register</button>
+          )}
+          {currentAccount.isUser ? (
+            currentAccount.box.state === 1 ? (
+              <button onClick={deactivateBox}>deactivate</button>
+            ) : (
+              <button onClick={activateBox}>activate</button>
+            )
+          ) : (
+            ""
           )}
           <ul>
             {users.map((user, idx) => (

@@ -181,6 +181,78 @@ export const DonutProvider = ({ children }) => {
     loadUsers,
   ]);
 
+  const activateBox = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+      if (!currentAccount.address) {
+        throw new Error(NoAccountFoundErr);
+      }
+      if (!currentAccount.isUser) return;
+      if (currentAccount.box.state === 1) return;
+
+      const smartContract = loadSmartContract();
+      const transactionHash = await smartContract.activateBox();
+
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+
+      console.log(transactionHash);
+      // display success dialog
+      await loadCurrentAccount(currentAccount.address);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [
+    currentAccount.address,
+    currentAccount.box.state,
+    currentAccount.isUser,
+    loadCurrentAccount,
+  ]);
+
+  const deactivateBox = useCallback(async () => {
+    try {
+      setIsLoading(true);
+
+      if (!ethereum) {
+        throw new Error(MetamaskNotDetectedErr);
+      }
+      if (!currentAccount.address) {
+        throw new Error(NoAccountFoundErr);
+      }
+      if (!currentAccount.isUser) return;
+      if (currentAccount.box.state === 0) return;
+
+      const smartContract = loadSmartContract();
+      const transactionHash = await smartContract.deactivateBox();
+
+      console.log(`Loading - ${transactionHash.hash}`);
+      await transactionHash.wait();
+      console.log(`Success - ${transactionHash.hash}`);
+
+      console.log(transactionHash);
+      // display success dialog
+      await loadCurrentAccount(currentAccount.address);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      // display error dialog
+      console.log(error);
+    }
+  }, [
+    currentAccount.address,
+    currentAccount.box.state,
+    currentAccount.isUser,
+    loadCurrentAccount,
+  ]);
+
   const connectMetamask = useCallback(async () => {
     try {
       if (!ethereum) {
@@ -238,6 +310,8 @@ export const DonutProvider = ({ children }) => {
         currentAccount,
         register,
         unregister,
+        activateBox,
+        deactivateBox,
         users,
         checkIfRegisteredUser,
         isLoading,
