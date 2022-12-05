@@ -45,5 +45,3 @@ typechain-types
 # Hardhat files
 cache
 artifacts
-
-deploy.js
