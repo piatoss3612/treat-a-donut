@@ -24,6 +24,7 @@ abstract contract Support {
         address indexed from,
         address indexed to,
         uint256 amount,
+        string message,
         uint256 timestamp
     );
 

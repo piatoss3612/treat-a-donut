@@ -55,29 +55,18 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
         emit DonutBoxDeactivated(msg.sender, block.timestamp);
     }
 
-    function withdraw(uint256 _amount) external onlyUser lock {
-        address user = msg.sender;
-
-        require(_isBoxActivated(user), "not activated box");
-        require(_amount > 0, "zero amount not allowed");
-        require(_balanceOf(user) >= _amount, "not enough balance");
-
-        _withdraw(user, _amount);
-
-        emit Withdrawn(user, _amount, block.timestamp);
-    }
-
     function supportDonut(
         address _to,
         uint256 _amount,
         string memory _message
     ) external payable {
+        require(_amount > 0, "zero amount not allowed");
+
         address from = msg.sender;
 
         require(_to != from, "supporting yourself not allowed");
         require(_isUser(_to), "not a valid user");
         require(_isBoxActivated(_to), "not activated box");
-        require(_amount > 0, "zero amount not allowed");
 
         uint256 totalPayment = _calculateTotalPayment(_amount);
         require(msg.value >= totalPayment, "not enough payment");
@@ -85,7 +74,20 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
         _transferExceptFee(_to, totalPayment);
         _addSupportReceipt(from, _to, _amount, _message);
 
-        emit DonutSupported(from, _to, _amount, block.timestamp);
+        emit DonutSupported(from, _to, _amount, _message, block.timestamp);
+    }
+
+    function withdraw(uint256 _amount) external onlyUser lock {
+        require(_amount > 0, "zero amount not allowed");
+
+        address user = msg.sender;
+
+        require(_isBoxActivated(user), "not activated box");
+        require(_balanceOf(user) >= _amount, "not enough balance");
+
+        _withdraw(user, _amount);
+
+        emit Withdrawn(user, _amount, block.timestamp);
     }
 
     function getReceiptsOfSupporter(
