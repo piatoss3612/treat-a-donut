@@ -1,4 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
+require("solidity-coverage");
 require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -23,5 +24,10 @@ module.exports = {
       url: process.env.ALCHEMY_URL,
       accounts: [process.env.GOERLI_PRIVATE_KEY],
     },
+  },
+  gasReporter: {
+    enabled: true,
+    currency: "USD",
+    coinmarketcap: process.env.COINMARKETCAP_API_KEY,
   },
 };
