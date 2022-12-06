@@ -7,7 +7,18 @@ import "./Accounts.sol";
 
 error BaseFeeExceptionOverflow();
 
-contract DonutConnector is Accounts, Support {
+/**
+ * @title Contract Connector
+ * @dev Contract module which connects Accounts Contract and Support Contract.
+ *
+ * This module is used through inheritance.
+ */
+abstract contract DonutConnector is Accounts, Support {
+    /**
+     * @dev Transfers payment except 1% of base fee
+     * @param _to address of receiver
+     * @param _payment supported amount from sender
+     */
     function _transferExceptFee(
         address _to,
         uint256 _payment

@@ -213,17 +213,17 @@ describe("Treat A Donut", () => {
       const donut = await hardhatTAD.DONUT();
       let from = owner.address;
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      const txHash = await hardhatTAD.supportDonut(to, amount, message, {
+      const txHash = await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
       expect(txHash)
         .to.emit(hardhatTAD, "DonutSupported")
-        .withArgs(from, to, amount, anyValue);
+        .withArgs(from, to, donuts, anyValue);
     });
 
     it("Success on supporting five donuts to user from non valid user", async () => {
@@ -234,22 +234,22 @@ describe("Treat A Donut", () => {
       const donut = await hardhatTAD.DONUT();
       let from = addr2.address;
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "non valid user supporting five donuts";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
       const txHash = await hardhatTAD
         .connect(addr2)
-        .supportDonut(to, amount, message, {
+        .supportDonut(to, donuts, message, {
           value: payment,
         });
 
       expect(txHash)
         .to.emit(hardhatTAD, "DonutSupported")
-        .withArgs(from, to, amount, anyValue);
+        .withArgs(from, to, donuts, anyValue);
     });
 
-    it("Success on retreiving support receipts", async () => {
+    it("Success on retrieving support receipts", async () => {
       const { hardhatTAD, owner, addr1 } = await loadFixture(deployTADFixture);
 
       await hardhatTAD.connect(addr1).register();
@@ -257,11 +257,11 @@ describe("Treat A Donut", () => {
       const donut = await hardhatTAD.DONUT();
       let from = owner.address;
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -270,7 +270,7 @@ describe("Treat A Donut", () => {
       expect(receiptsOfSupporter.length).to.equal(1);
       expect(receiptsOfSupporter[0].from).to.equal(from);
       expect(receiptsOfSupporter[0].to).to.equal(to);
-      expect(receiptsOfSupporter[0].amount).to.equal(amount);
+      expect(receiptsOfSupporter[0].donuts).to.equal(donuts);
       expect(receiptsOfSupporter[0].message).to.equal(message);
 
       const receiptsOfBeneficiary = await hardhatTAD.getReceiptsOfBeneficiary(
@@ -280,7 +280,7 @@ describe("Treat A Donut", () => {
       expect(receiptsOfBeneficiary.length).to.equal(1);
       expect(receiptsOfBeneficiary[0].from).to.equal(from);
       expect(receiptsOfBeneficiary[0].to).to.equal(to);
-      expect(receiptsOfBeneficiary[0].amount).to.equal(amount);
+      expect(receiptsOfBeneficiary[0].donuts).to.equal(donuts);
       expect(receiptsOfBeneficiary[0].message).to.equal(message);
     });
 
@@ -291,11 +291,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -312,14 +312,14 @@ describe("Treat A Donut", () => {
       await hardhatTAD.connect(addr1).register();
 
       let to = addr1.address;
-      let amount = 0;
+      let donuts = 0;
       let message = "user supporting five donuts to user with deactivated box";
 
       await expect(
-        hardhatTAD.supportDonut(to, amount, message, {
+        hardhatTAD.supportDonut(to, donuts, message, {
           value: 0,
         })
-      ).to.be.revertedWith("zero amount not allowed");
+      ).to.be.revertedWith("zero donut not allowed");
     });
 
     it("Failure on supporting donuts to oneself", async () => {
@@ -327,12 +327,12 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = owner.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts to oneself";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
       await expect(
-        hardhatTAD.supportDonut(to, amount, message, {
+        hardhatTAD.supportDonut(to, donuts, message, {
           value: payment,
         })
       ).to.be.revertedWith("supporting yourself not allowed");
@@ -343,12 +343,12 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts to non valid user";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
       await expect(
-        hardhatTAD.supportDonut(to, amount, message, {
+        hardhatTAD.supportDonut(to, donuts, message, {
           value: payment,
         })
       ).to.be.revertedWith("not a valid user");
@@ -362,12 +362,12 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts to user with deactivated box";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
       await expect(
-        hardhatTAD.supportDonut(to, amount, message, {
+        hardhatTAD.supportDonut(to, donuts, message, {
           value: payment,
         })
       ).to.be.revertedWith("not activated box");
@@ -380,12 +380,12 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "user supporting five donuts to user with deactivated box";
-      let payment = ethers.BigNumber.from(amount - 1).mul(donut);
+      let payment = ethers.BigNumber.from(donuts - 1).mul(donut);
 
       await expect(
-        hardhatTAD.supportDonut(to, amount, message, {
+        hardhatTAD.supportDonut(to, donuts, message, {
           value: payment,
         })
       ).to.be.revertedWith("not enough payment");
@@ -402,11 +402,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "withdraw balance";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -433,11 +433,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "withdraw non valid user balance";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -453,11 +453,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "withdraw non valid user balance";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -478,11 +478,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "withdraw from deactivated box";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
@@ -503,15 +503,15 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "withdraw an excess of amount";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
-      let withdrawAmount = ethers.BigNumber.from(amount + 1).mul(donut);
+      let withdrawAmount = ethers.BigNumber.from(donuts + 1).mul(donut);
 
       await expect(
         hardhatTAD.connect(addr1).withdraw(withdrawAmount)
@@ -529,11 +529,11 @@ describe("Treat A Donut", () => {
 
       const donut = await hardhatTAD.DONUT();
       let to = addr1.address;
-      let amount = 5;
+      let donuts = 5;
       let message = "smart contract destruction";
-      let payment = ethers.BigNumber.from(amount).mul(donut);
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
 
-      await hardhatTAD.supportDonut(to, amount, message, {
+      await hardhatTAD.supportDonut(to, donuts, message, {
         value: payment,
       });
 
