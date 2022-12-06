@@ -1,5 +1,8 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("solidity-coverage");
+require("hardhat-contract-sizer");
+require("hardhat-tracer");
+require("@primitivefi/hardhat-dodoc");
 require("dotenv").config();
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -29,5 +32,11 @@ module.exports = {
     enabled: true,
     currency: "USD",
     coinmarketcap: process.env.COINMARKETCAP_API_KEY,
+  },
+  contractSizer: {
+    runOnCompile: true,
+  },
+  dodoc: {
+    runOnCompile: false,
   },
 };
