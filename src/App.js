@@ -1,7 +1,28 @@
-import "./App.css";
+import React from "react";
+import Home from "./pages/Home";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import DonutNavBar from "./components/NavBar/DonutNavBar";
+import { Container } from "react-bootstrap";
+
+const App = () => {
+  return (
+    <Router>
+      <DonutNavBar />
+      <Container>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Container>
+    </Router>
+  );
+};
+export default App;
+
+/*
 import { useContext, useState } from "react";
 import { DonutContext } from "./context/context";
 import { ethers } from "ethers";
+import NavBar from "./components/NavBar";
 
 function App() {
   const {
@@ -175,5 +196,4 @@ function App() {
     </div>
   );
 }
-
-export default App;
+*/

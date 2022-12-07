@@ -8,8 +8,8 @@ const initialUserInfo = {
   address: "",
   isUser: false,
   box: {
-    state: "",
-    balance: "",
+    state: ethers.BigNumber.from("0"),
+    balance: ethers.BigNumber.from("0"),
   },
 };
 

@@ -1,4 +1,4 @@
 import abi from "../abis/TreatADonut.json";
 
-export const ContractAddress = "0x1011696a1e33Ae8A6fA6806d8366D52814394dD8";
+export const ContractAddress = "0x44e302d85EF36c363191A7535481Bd27ec887a10";
 export const ContractAbi = abi.abi;
