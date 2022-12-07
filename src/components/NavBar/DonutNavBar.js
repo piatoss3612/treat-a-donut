@@ -1,19 +1,11 @@
 import Logo from "../../images/logo.png";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { DonutContext } from "../../context/context";
 import { shortenAddress } from "../../utils/shortenAddress";
-import {
-  Button,
-  Container,
-  Dropdown,
-  Nav,
-  Navbar,
-  OverlayTrigger,
-  Popover,
-} from "react-bootstrap";
+import { Button, Container, Dropdown, Nav, Navbar } from "react-bootstrap";
 import { ethers } from "ethers";
 import { Link } from "react-router-dom";
-const DonutNavBar = () => {
+const DonutNavBar = ({ openWithdrawModal }) => {
   const {
     connectMetamask,
     currentAccount,
@@ -33,20 +25,41 @@ const DonutNavBar = () => {
           <img
             src={"https://source.boringavatars.com/"}
             alt="avatar"
-            width={32}
-            height={32}
+            width={36}
+            height={36}
+            style={{ margin: "4px" }}
           />
         </Dropdown.Header>
-        <Dropdown.Item
-          onClick={currentAccount.box.state ? deactivateBox : activateBox}
-        >
-          {`📦 ${currentAccount.box.state ? "activated" : "deactivated"}`}
-        </Dropdown.Item>
-        <Dropdown.Item disabled={!currentAccount.box.state}>
-          💰{" "}
-          {`${ethers.utils.formatUnits(currentAccount.box.balance, "ether")}`}{" "}
-          eth
-        </Dropdown.Item>
+        {currentAccount.isUser ? (
+          <>
+            <Dropdown.Item
+              onClick={
+                currentAccount.box.state.toString() === "1"
+                  ? deactivateBox
+                  : activateBox
+              }
+            >
+              {`📦 ${
+                currentAccount.box.state.toString() === "1"
+                  ? "activated"
+                  : "deactivated"
+              }`}
+            </Dropdown.Item>
+            <Dropdown.Item
+              disabled={currentAccount.box.state.toString() === "0"}
+              onClick={openWithdrawModal}
+            >
+              💰{" "}
+              {`${ethers.utils.formatUnits(
+                currentAccount.box.balance,
+                "ether"
+              )}`}{" "}
+              eth
+            </Dropdown.Item>
+          </>
+        ) : (
+          ""
+        )}
         <Dropdown.Divider />
         {currentAccount.isUser ? (
           <Dropdown.Item

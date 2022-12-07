@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Home from "./pages/Home";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DonutNavBar from "./components/NavBar/DonutNavBar";
 import { Container } from "react-bootstrap";
+import WithdrawModal from "./components/Modal/WithdrawModal";
 
 const App = () => {
+  const [showWithdrawModal, setShowWithdrawModal] = useState(false);
+
+  const closeWithdrawModal = () => setShowWithdrawModal(false);
+  const openWithdrawModal = () => setShowWithdrawModal(true);
+
   return (
     <Router>
-      <DonutNavBar />
+      <DonutNavBar openWithdrawModal={openWithdrawModal} />
+      <WithdrawModal
+        showWithdrawModal={showWithdrawModal}
+        closeWithdrawModal={closeWithdrawModal}
+      />
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />

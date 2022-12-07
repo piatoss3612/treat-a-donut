@@ -452,6 +452,7 @@ export const DonutProvider = ({ children }) => {
         setDonutAmount,
         setMessage,
         withdrawBalance,
+        withdrawAmount,
         setWithdrawAmount,
         loadReceiptsOfSupporter,
         loadReceiptsOfBeneficiary,
