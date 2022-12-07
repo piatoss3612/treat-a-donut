@@ -2,7 +2,14 @@ import Logo from "../../images/logo.png";
 import React, { useContext } from "react";
 import { DonutContext } from "../../context/context";
 import { shortenAddress } from "../../utils/shortenAddress";
-import { Button, Container, Dropdown, Nav, Navbar } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Dropdown,
+  Nav,
+  Navbar,
+  Spinner,
+} from "react-bootstrap";
 import { ethers } from "ethers";
 import { Link } from "react-router-dom";
 const DonutNavBar = ({ openWithdrawModal }) => {
@@ -13,6 +20,7 @@ const DonutNavBar = ({ openWithdrawModal }) => {
     unregister,
     activateBox,
     deactivateBox,
+    isLoading,
   } = useContext(DonutContext);
 
   const dropdown = (
@@ -92,7 +100,16 @@ const DonutNavBar = ({ openWithdrawModal }) => {
             <img src={Logo} alt="logo" width={64} height={64} />
           </Link>
         </Navbar.Brand>
-        {currentAccount.address ? <Nav>{dropdown}</Nav> : connectBtn}
+        {isLoading ? (
+          <Button variant="dark" disabled>
+            <Spinner as={"span"} size="sm" animation="border" />{" "}
+            <span>Loading...</span>
+          </Button>
+        ) : currentAccount.address ? (
+          <Nav>{dropdown}</Nav>
+        ) : (
+          connectBtn
+        )}
       </Container>
     </Navbar>
   );

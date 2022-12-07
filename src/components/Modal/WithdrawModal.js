@@ -15,7 +15,7 @@ const WithdrawModal = ({ showWithdrawModal, closeWithdrawModal }) => {
         closeWithdrawModal();
       }}
     >
-      <Form.Group className="mb-3" controlId="formBasicEmail">
+      <Form.Group className="mb-3">
         <Form.Label>Amount to withdraw</Form.Label>
         <Form.Control
           type="number"
