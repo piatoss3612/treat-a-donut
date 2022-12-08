@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import DonutNavBar from "./components/NavBar/DonutNavBar";
 import { Container } from "react-bootstrap";
 import WithdrawModal from "./components/Modal/WithdrawModal";
+import UserInfo from "./pages/UserInfo";
 
 const App = () => {
   const [showWithdrawModal, setShowWithdrawModal] = useState(false);
@@ -21,6 +22,7 @@ const App = () => {
       <Container>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/user/:addr" element={<UserInfo />} />
         </Routes>
       </Container>
     </Router>
