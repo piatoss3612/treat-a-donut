@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import SupportForm from "../components/Form/SupportForm";
+import { SupportList } from "../components/List/SupportList";
 import { DonutContext } from "../context/context";
 
 const UserInfo = () => {
@@ -29,7 +30,9 @@ const UserInfo = () => {
   return (
     <Container>
       <Row>
-        <Col>{addr}</Col>
+        <Col>
+          <SupportList addr={addr} />
+        </Col>
         <Col>
           <SupportForm addr={addr} />
         </Col>
