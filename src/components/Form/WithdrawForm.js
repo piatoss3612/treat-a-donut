@@ -1,3 +1,4 @@
+import { ethers } from "ethers";
 import React, { useContext } from "react";
 import { Button, Form } from "react-bootstrap";
 import { DonutContext } from "../../context/context";
@@ -22,7 +23,10 @@ const WithdrawForm = ({ closeWithdrawModal }) => {
       }}
     >
       <Form.Group className="mb-3">
-        <Form.Label>Amount to withdraw</Form.Label>
+        <Form.Label>
+          Available:{" "}
+          {ethers.utils.formatUnits(currentAccount.box.balance, "ether")} eth
+        </Form.Label>
         <Form.Control
           type="number"
           step="any"
