@@ -18,42 +18,45 @@ export const SupportList = ({ addr }) => {
     }.svg`;
   };
 
-  const listItems = supportReceipts.map((receipt, idx) => (
-    <ListGroup.Item key={idx}>
-      <Container>
-        <Row className="m-1">
-          <Col lg="auto">
-            <Image
-              className="m-1"
-              src={generateRandomAvatar()}
-              alt="random avatar"
-              width={48}
-            />
-          </Col>
-          <Col>
-            <Row style={{ color: "grey" }}>
-              {shortenAddress(receipt.from)} bought{" "}
-              {receipt.donuts.toString() === "1"
-                ? "a donut"
-                : `${receipt.donuts.toString()} donuts`}
-            </Row>
-            <Row style={{ color: "grey" }}>
-              {timeAgo.format(
-                new Date(receipt.timestamp.toNumber() * 1000),
-                "mini"
-              )}{" "}
-              ago
-            </Row>
-            {receipt.message ? (
-              <Row className="mt-2 mb-2">{receipt.message}</Row>
-            ) : (
-              ""
-            )}
-          </Col>
-        </Row>
-      </Container>
-    </ListGroup.Item>
-  ));
+  const listItems = supportReceipts
+    .slice(0)
+    .reverse()
+    .map((receipt, idx) => (
+      <ListGroup.Item key={idx}>
+        <Container>
+          <Row className="m-1">
+            <Col lg="auto">
+              <Image
+                className="m-1"
+                src={generateRandomAvatar()}
+                alt="random avatar"
+                width={48}
+              />
+            </Col>
+            <Col>
+              <Row style={{ color: "grey" }}>
+                {shortenAddress(receipt.from)} bought{" "}
+                {receipt.donuts.toString() === "1"
+                  ? "a donut"
+                  : `${receipt.donuts.toString()} donuts`}
+              </Row>
+              <Row style={{ color: "grey" }}>
+                {timeAgo.format(
+                  new Date(receipt.timestamp.toNumber() * 1000),
+                  "mini"
+                )}{" "}
+                ago
+              </Row>
+              {receipt.message ? (
+                <Row className="mt-2 mb-2">{receipt.message}</Row>
+              ) : (
+                ""
+              )}
+            </Col>
+          </Row>
+        </Container>
+      </ListGroup.Item>
+    ));
 
   useEffect(() => {
     loadReceiptsOfBeneficiary(addr)
