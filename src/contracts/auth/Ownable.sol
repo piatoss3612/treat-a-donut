@@ -41,7 +41,7 @@ abstract contract Ownable {
 
     /// @notice Returns the address of current owner.
     /// @return address of current owner
-    function owner() external view returns (address) {
+    function owner() public view returns (address) {
         return _owner;
     }
 

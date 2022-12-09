@@ -521,6 +521,12 @@ describe("Treat A Donut", () => {
 
   describe("Destruction", () => {
     it("Success on smart contract destruction", async () => {
+      const { hardhatTAD } = await loadFixture(deployTADFixture);
+
+      await expect(hardhatTAD.destroyContract()).to.be.ok;
+    });
+
+    it("Success on settlement of donut box on destruction", async () => {
       const { hardhatTAD, addr1 } = await loadFixture(deployTADFixture);
 
       await hardhatTAD.connect(addr1).register();
@@ -544,8 +550,34 @@ describe("Treat A Donut", () => {
       let diff = afterAccountBalance.sub(beforeAccountBalance);
 
       expect(diff).to.be.gt(0);
+    });
 
-      await expect(hardhatTAD.DONUT()).to.be.reverted;
+    it("Success on transferral of transaction fees to owner on destruction", async () => {
+      const { hardhatTAD, owner, addr1, addr2 } = await loadFixture(
+        deployTADFixture
+      );
+
+      await hardhatTAD.connect(addr1).register();
+
+      let beforeOwnerBalance = await owner.getBalance();
+
+      const donut = await hardhatTAD.DONUT();
+      let to = addr1.address;
+      let donuts = 500;
+      let message = "owner can take transaction fees";
+      let payment = ethers.BigNumber.from(donuts).mul(donut);
+
+      await hardhatTAD.connect(addr2).supportDonut(to, donuts, message, {
+        value: payment,
+      });
+
+      await hardhatTAD.destroyContract();
+
+      let afterOwnerBalance = await owner.getBalance();
+
+      let diff = afterOwnerBalance.sub(beforeOwnerBalance);
+
+      expect(diff).to.be.gt(0);
     });
 
     it("Failure on smart contract destruction called by non valid owner", async () => {

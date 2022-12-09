@@ -13,7 +13,7 @@ error BalanceWithdrawOverflow();
  *
  * This module is used through inheritance.
  */
-contract DonutBox {
+abstract contract DonutBox {
     enum BoxState {
         Disactivated,
         Activated

@@ -72,7 +72,7 @@ export const SupportList = ({ addr }) => {
     <div className="mt-3">
       <h3 className="mb-3">Recent supporters</h3>
       <ListGroup className="mt-3 shadow p-3 bg-white rounded">
-        {listItems}
+        {supportReceipts.length ? listItems : "Waiting for some donuts..."}
       </ListGroup>
     </div>
   );

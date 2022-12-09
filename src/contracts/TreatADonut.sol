@@ -204,6 +204,6 @@ contract TreatADonut is Ownable, DonutConnector, ReentrancyGuard {
     function destroyContract() external onlyOwner lock {
         _settleDonutBoxes();
 
-        selfdestruct(payable(address(this)));
+        selfdestruct(payable(owner()));
     }
 }
