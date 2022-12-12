@@ -68,22 +68,23 @@ $ npx hardhat run scripts/deploy.js --network goerli
 
 #### Smart Contract
 
-[hardhat](https://github.com/NomicFoundation/hardhat)
-[solidity-coverage](https://github.com/sc-forks/solidity-coverage)
-[contract-sizer](https://github.com/ItsNickBarry/hardhat-contract-sizer)
-[hardhat-tracer](https://github.com/zemse/hardhat-tracer)
-[@primitivefi/hardhat-dodo](https://github.com/primitivefinance/primitive-dodoc)
+- [hardhat](https://github.com/NomicFoundation/hardhat)
+- [openzeppelin-contracts](https://github.com/OpenZeppelin/openzeppelin-contracts)
+- [solidity-coverage](https://github.com/sc-forks/solidity-coverage)
+- [contract-sizer](https://github.com/ItsNickBarry/hardhat-contract-sizer)
+- [hardhat-tracer](https://github.com/zemse/hardhat-tracer)
+- [@primitivefi/hardhat-dodo](https://github.com/primitivefinance/primitive-dodoc)
 
 #### Web App
 
-[react](https://github.com/facebook/react/)
-[react-router](https://github.com/remix-run/react-router)
-[react-bootstrap](https://github.com/react-bootstrap/react-bootstrap)
-[ethers](https://github.com/ethers-io/ethers.js/)
-[dotenv](https://github.com/motdotla/dotenv)
-[javascript-time-ago](https://github.com/catamphetamine/javascript-time-ago)
+- [react](https://github.com/facebook/react/)
+- [react-router](https://github.com/remix-run/react-router)
+- [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap)
+- [ethers](https://github.com/ethers-io/ethers.js/)
+- [dotenv](https://github.com/motdotla/dotenv)
+- [javascript-time-ago](https://github.com/catamphetamine/javascript-time-ago)
 
 
 #### API
 
-[DiceBear Avatars](https://github.com/dicebear/dicebear)
+- [DiceBear Avatars](https://github.com/dicebear/dicebear)
