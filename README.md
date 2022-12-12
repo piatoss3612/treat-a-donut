@@ -1,19 +1,21 @@
-# Sample Hardhat Project
+# Treat A Donut
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+This project is simple donation dapp.
 
-Try running some of the following tasks:
+
+### Run front-end
 
 ```shell
-npx hardhat help
-npx hardhat node
+$ npm install
+$ npm start
 ```
 
-### Test
+### Run Test
 
 ```
 $ npx hardhat test
 $ npx hardhat test --trace
+$ npx hardhat test --fulltrace
 ```
 
 ### Test Coverage
@@ -39,11 +41,49 @@ $ npx hardhat dodoc
 ```shell
 $ docker pull mythril/myth
 $ docker run -v "$(pwd)/src/contracts:/tmp" mythril/myth analyze /tmp/TreatADonut.sol
+```
+```shell
 > The analysis was completed successfully. No issues were detected.
 ```
 
-### Deployment
+### Smart Contract Deployment
+
+If you want to deploy the smart contract on your own,
+copy `.env.example`, create `.env`, then fill out blanks
+
+```.env
+COINMARKETCAP_API_KEY=
+ETHERSCAN_API_KEY=
+ALCHEMY_URL=
+GOERLI_PRIVATE_KEY=
+```
 
 ```shell
 $ npx hardhat run scripts/deploy.js --network goerli
 ```
+
+---
+
+### Dependencies
+
+#### Smart Contract
+
+[hardhat](https://github.com/NomicFoundation/hardhat)
+[solidity-coverage](https://github.com/sc-forks/solidity-coverage)
+[contract-sizer](https://github.com/ItsNickBarry/hardhat-contract-sizer)
+[hardhat-tracer](https://github.com/zemse/hardhat-tracer)
+[@primitivefi/hardhat-dodo](https://github.com/primitivefinance/primitive-dodoc)
+
+#### Web App
+
+[react](https://github.com/facebook/react/)
+[react-router](https://github.com/remix-run/react-router)
+[react-bootstrap](https://github.com/react-bootstrap/react-bootstrap)
+[ethers](https://github.com/ethers-io/ethers.js/)
+[dotenv](https://github.com/motdotla/dotenv)
+[javascript-time-ago](https://github.com/catamphetamine/javascript-time-ago)
+
+
+#### API
+
+[DiceBear Avatars](https://github.com/dicebear/dicebear)
